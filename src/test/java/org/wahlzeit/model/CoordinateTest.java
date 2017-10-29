@@ -114,6 +114,10 @@ public class CoordinateTest {
 		assertFalse(defaultCoordinate.isEqual(parameterizedCoordinate));
 	}
 	
+	@Test
+	public void testIsEqualSameDataDifferentObjects() {
+		assertTrue(parameterizedCoordinate.isEqual(new Coordinate(1.0, 2.0, 3.0)));
+	}
 	
 	//*************************************************************************
 	//							Coordinate.equals
@@ -139,6 +143,11 @@ public class CoordinateTest {
 		assertFalse(parameterizedCoordinate.equals(new Coordinate(2.0, 2.0, 3.0)));
 		assertFalse(parameterizedCoordinate.equals(new Coordinate(1.0, 1.0, 3.0)));
 		assertFalse(parameterizedCoordinate.equals(new Coordinate(1.0, 2.0, 2.0)));
+	}
+	
+	@Test
+	public void testEqualSameDataDifferentObjects() {
+		assertTrue(parameterizedCoordinate.equals(new Coordinate(1.0, 2.0, 3.0)));
 	}
 
 	//*************************************************************************
