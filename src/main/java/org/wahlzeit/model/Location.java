@@ -88,7 +88,7 @@ public class Location {
 		}
 		
 		//Check if obj is an instance of class Coordinate
-		if (!(obj instanceof Coordinate)) {
+		if (!(obj instanceof Location)) {
 			return false;
 		}
 		
