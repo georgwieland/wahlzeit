@@ -1,5 +1,5 @@
 /*
- * Classname: Coordinate
+ * Classname: CoordinateTest
  * 
  * Copyright (c) 2017 by Georg Wieland
  *
@@ -140,5 +140,12 @@ public class CoordinateTest {
 		assertFalse(parameterizedCoordinate.equals(new Coordinate(1.0, 1.0, 3.0)));
 		assertFalse(parameterizedCoordinate.equals(new Coordinate(1.0, 2.0, 2.0)));
 	}
-	
+
+	//*************************************************************************
+	//		Coordinate.hashcode
+	//*************************************************************************
+	@Test
+	public void testHashCode() {
+		assertEquals(parameterizedCoordinate.hashCode(), parameterizedCoordinate.hashCode());
+	}
 }

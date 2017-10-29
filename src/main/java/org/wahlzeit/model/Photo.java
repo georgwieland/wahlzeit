@@ -122,6 +122,13 @@ public class Photo extends DataObject {
 	 */
 	protected String ending = "jpg";
 	
+	
+	/**
+	 *  Location of the photo.
+	 */
+	protected Location location = null;
+
+
 	/**
 	 *
 	 */
@@ -417,5 +424,27 @@ public class Photo extends DataObject {
 	public void setNoNewPraise() {
 		noVotesAtLastNotification = noVotes;
 		incWriteCount();
+	}
+	
+	
+	/**
+	 * Get method for location of the photo.
+	 * 
+	 * @return
+	 * Return a location object representing the location of the photo.
+	 */
+	public Location getLocation() {
+		return location;
+	}
+
+	
+	/**
+	 * Set method for location of the photo.
+	 * 
+	 * @param location
+	 * Location object representing the location of the photo.
+	 */
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 }

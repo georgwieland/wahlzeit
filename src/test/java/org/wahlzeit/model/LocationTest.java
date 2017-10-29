@@ -1,5 +1,5 @@
 /*
- * Classname: Coordinate
+ * Classname: LocationTest
  * 
  * Copyright (c) 2017 by Georg Wieland
  *
@@ -101,7 +101,7 @@ public class LocationTest {
 	
 	
 	//*************************************************************************
-	//		Coordinate.hashcode
+	//		Location.hashcode
 	//*************************************************************************
 	@Test
 	public void testHashCode() {
