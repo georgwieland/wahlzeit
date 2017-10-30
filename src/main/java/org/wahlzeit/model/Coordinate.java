@@ -164,7 +164,7 @@ public class Coordinate {
 			return false;
 		}
 		
-		return ((this.x == otherCoordinate.getX()) && (this.y == otherCoordinate.getY()) && (this.z == otherCoordinate.getZ()));
+		return ((Double.compare(this.x, otherCoordinate.getX()) == 0) && (Double.compare(this.y, otherCoordinate.getY()) == 0) && (Double.compare(this.z, otherCoordinate.getZ()) == 0));
 	}
 
 	/**
