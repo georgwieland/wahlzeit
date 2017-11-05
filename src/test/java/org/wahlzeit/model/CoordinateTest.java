@@ -117,6 +117,14 @@ public class CoordinateTest {
 	@Test
 	public void testIsEqualSameDataDifferentObjects() {
 		assertTrue(parameterizedCoordinate.isEqual(new Coordinate(1.0, 2.0, 3.0)));
+		parameterizedCoordinate.setX(1.00025);
+		parameterizedCoordinate.setY(2.00025);
+		parameterizedCoordinate.setZ(3.00025);
+		assertFalse(parameterizedCoordinate.isEqual(new Coordinate(1.00024, 2.00024, 3.00024)));
+		parameterizedCoordinate.setX(1.000025);
+		parameterizedCoordinate.setY(2.000025);
+		parameterizedCoordinate.setZ(3.000025);
+		assertTrue(parameterizedCoordinate.isEqual(new Coordinate(1.000024, 2.000024, 3.000024)));
 	}
 	
 	//*************************************************************************
@@ -157,4 +165,4 @@ public class CoordinateTest {
 	public void testHashCode() {
 		assertEquals(parameterizedCoordinate.hashCode(), parameterizedCoordinate.hashCode());
 	}
-}
+} //end of class CoordinateTest

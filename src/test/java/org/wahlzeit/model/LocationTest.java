@@ -107,4 +107,4 @@ public class LocationTest {
 	public void testHashCode() {
 		assertEquals(parameterizedLocation.hashCode(), parameterizedLocation.hashCode());
 	}
-}
+}//end of class LocationTest

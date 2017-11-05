@@ -35,6 +35,9 @@ public class Coordinate {
 	//z coordinate
 	private double z = 0.0;
 	
+	//Precision for double equality comparison
+	private static final double PRECISION = 1E-5;
+	
 	/**
 	 * Constructs a Coordinate.
 	 */
@@ -164,7 +167,7 @@ public class Coordinate {
 			return false;
 		}
 		
-		return ((Double.compare(this.x, otherCoordinate.getX()) == 0) && (Double.compare(this.y, otherCoordinate.getY()) == 0) && (Double.compare(this.z, otherCoordinate.getZ()) == 0));
+		return ((compareDoubles(this.x, otherCoordinate.getX())) && (compareDoubles(this.y, otherCoordinate.getY())) && (compareDoubles(this.z, otherCoordinate.getZ())));
 	}
 
 	/**
@@ -209,6 +212,26 @@ public class Coordinate {
 		temp = Double.doubleToLongBits(z);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
+	}
+	
+	/**
+	 * Comparing two doubles taking rounding error into account.
+	 * 
+	 * @param firstDouble
+	 * First double value for comparison.
+	 * 
+	 * @param secondDouble
+	 * Second double value for comparison.
+	 * 
+	 * @return
+	 * True if equal otherwise false.
+	 */
+	private static boolean compareDoubles(double firstDouble, double secondDouble) {
+		if (Double.isNaN(firstDouble) || Double.isNaN(secondDouble)) {
+			return false;
+		}
+		//first substract and compare absolute value with PRECISION 
+		return Math.abs(firstDouble - secondDouble) < PRECISION;
 	}
 }//end of class Coordinate
 

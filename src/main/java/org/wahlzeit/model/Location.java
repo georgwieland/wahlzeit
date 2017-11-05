@@ -108,6 +108,5 @@ public class Location {
 		int result = 1;
 		result = prime * result + ((coordinate == null) ? 0 : coordinate.hashCode());
 		return result;
-	}
-	
-}
+	}	
+} //end of class Location
