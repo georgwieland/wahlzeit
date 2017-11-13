@@ -53,7 +53,11 @@ import org.wahlzeit.model.persistence.PersistenceModelTestSuite;
 	PhotoFilterTest.class, 
 	TagsTest.class, 
 	UserStatusTest.class, 
-	ValueTest.class, 
+	ValueTest.class,
+	FishTest.class,
+	FishPhotoTest.class,
+	FishPhotoManagerTest.class,
+	FishPhotoFactoryTest.class,
 	
 	//Test suites
 	PersistenceModelTestSuite.class
