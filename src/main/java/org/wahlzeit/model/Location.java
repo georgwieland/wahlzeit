@@ -51,6 +51,9 @@ public class Location {
 	/**
 	 * Get method for the coordinates.
 	 * 
+	 * @methodtype 
+	 * get method
+	 * 
 	 * @return
 	 * Returns the coordinates.
 	 */
@@ -60,6 +63,9 @@ public class Location {
 
 	/**
 	 * Set method for the coordinates.
+	 * 
+	 * @methodtype
+	 * set method
 	 * 
 	 * @param coordinate
 	 * Coordinate object for setting the coordinates.
@@ -74,6 +80,9 @@ public class Location {
 
 	/**
 	 * Overriding equals method.
+	 * 
+	 * @methodtype 
+	 * bolean query method
 	 */
 	@Override
 	public boolean equals(Object obj) {

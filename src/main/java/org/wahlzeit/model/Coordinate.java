@@ -66,6 +66,9 @@ public class Coordinate {
 	/**
 	 * Get method for x coordinate.
 	 * 
+	 * @methodtype 
+	 * get method
+	 * 
 	 * @return
 	 * Return x coordinate
 	 */
@@ -75,6 +78,9 @@ public class Coordinate {
 
 	/**
 	 * Set method for x coordinate.
+	 * 
+	 * @methodtype 
+	 * set method
 	 * 
 	 * @param x
 	 * x coordinate
@@ -86,6 +92,9 @@ public class Coordinate {
 	/**
 	 * Get method for y coordinate.
 	 * 
+	 * @methodtype 
+	 * get method
+	 * 
 	 * @return
 	 * Return y coordinate
 	 */
@@ -95,6 +104,9 @@ public class Coordinate {
 
 	/**
 	 * Set method for y coordinate.
+	 * 
+	 * @methodtype 
+	 * set method
 	 * 
 	 * @param y
 	 * y coordinate
@@ -106,6 +118,9 @@ public class Coordinate {
 	/**
 	 * Get method for z coordinate.
 	 * 
+	 * @methodtype 
+	 * get method
+	 * 
 	 * @return
 	 * Return z coordinate
 	 */
@@ -115,6 +130,9 @@ public class Coordinate {
 
 	/**
 	 * Set method for z coordinate.
+	 * 
+	 * @methodtype 
+	 * set method
 	 * 
 	 * @param z
 	 * z coordinate
@@ -127,6 +145,9 @@ public class Coordinate {
 	
 	/**
 	 * Calculates the cartesian distance.
+	 * 
+	 * @methodtype 
+	 * get method
 	 * 
 	 * @param otherCoordinate
 	 * Other Coordinate object for distance calculation.
@@ -156,6 +177,9 @@ public class Coordinate {
 	/**
 	 * Checks if the two coordinate object are equal.
 	 * 
+	 * @methodtype 
+	 * bolean query method
+	 * 
 	 * @param otherCoordinate
 	 * Other Coordinate object for comparison.
 	 * 
@@ -172,6 +196,9 @@ public class Coordinate {
 
 	/**
 	 * Overriding equals method.
+	 * 
+	 * @methodtype 
+	 * bolean query method
 	 */
 	@Override
 	public boolean equals(Object obj) {	
@@ -216,6 +243,9 @@ public class Coordinate {
 	
 	/**
 	 * Comparing two doubles taking rounding error into account.
+	 * 
+	 * @method type
+	 * bolean query method
 	 * 
 	 * @param firstDouble
 	 * First double value for comparison.

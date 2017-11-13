@@ -430,6 +430,9 @@ public class Photo extends DataObject {
 	/**
 	 * Get method for location of the photo.
 	 * 
+	 * @method type
+	 * get method
+	 * 
 	 * @return
 	 * Return a location object representing the location of the photo.
 	 */
@@ -440,6 +443,9 @@ public class Photo extends DataObject {
 	
 	/**
 	 * Set method for location of the photo.
+	 * 
+	 * @method type
+	 * set method
 	 * 
 	 * @param location
 	 * Location object representing the location of the photo.
