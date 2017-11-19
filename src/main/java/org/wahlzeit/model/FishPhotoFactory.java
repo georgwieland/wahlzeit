@@ -108,4 +108,27 @@ public class FishPhotoFactory extends PhotoFactory {
 	public FishPhoto createPhoto(PhotoId id) {
 		return new FishPhoto(id);
 	}
+	
+	/**
+	 * @methodtype factory method
+	 * 
+	 * @param fish
+	 * @return
+	 * Created FishPhoto object.
+	 */
+	public FishPhoto createPhoto(Fish fish) {
+		return new FishPhoto(fish);
+	}
+	
+	/**
+	 * @methodtype factory method
+	 * 
+	 * @param id
+	 * @param fish
+	 * @return
+	 * Created FishPhoto object.
+	 */
+	public FishPhoto createPhoto(PhotoId id, Fish fish) {
+		return new FishPhoto(id, fish);
+	}
 }//end of FishPhotoFactory
