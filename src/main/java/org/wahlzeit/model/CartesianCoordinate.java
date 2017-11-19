@@ -1,5 +1,5 @@
 /*
- * Classname: Coordinate
+ * Classname: CartesianCoordinate
  * 
  * Copyright (c) 2017 by Georg Wieland
  *
@@ -22,32 +22,37 @@
 package org.wahlzeit.model;
 
 /**
- * Coordinate is represented by a x, y and cartesian coordinate.
+ * CartesianCoordinate is represented by a x, y and cartesian coordinate.
  */
-public class Coordinate {
+public class CartesianCoordinate implements Coordinate{
 	
 	//x coordinate
-	private double x = 0.0;
+	private double x;
 	
 	//y coordinate
-	private double y = 0.0;
+	private double y;
 	
 	//z coordinate
-	private double z = 0.0;
+	private double z;
 	
 	//Precision for double equality comparison
 	private static final double PRECISION = 1E-5;
 	
+	
 	/**
-	 * Constructs a Coordinate.
+	 * Constructs a CartesianCoordinate.
+	 * 
+	 * @methodtype constructor
+	 * @methodproperties convenience
 	 */
-	public Coordinate() {
-
+	public CartesianCoordinate() {
+		this(0.0, 0.0, 0.0);
 	}
 	
 	/**
-	 * Constructs a Coordinate object with the given arguments.
+	 * Constructs a CartesianCoordinate object with the given arguments.
 	 * 
+	 * @methodtype constructor
 	 * @param x
 	 * x coordinate for initialization.
 	 * 
@@ -57,10 +62,22 @@ public class Coordinate {
 	 * @param z
 	 * z coordinate for initialization.
 	 */
-	public Coordinate(double x, double y, double z) {
+	public CartesianCoordinate(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+	
+	/**
+	 * Copy constructor
+	 * 
+	 * @methodtype constructor
+	 * @methodproperties convenience
+	 * @param otherCoordinate
+	 * CartesianCoordinate object to copy.
+	 */
+	public CartesianCoordinate(CartesianCoordinate otherCoordinate) {
+		this(otherCoordinate.getX(), otherCoordinate.getY(), otherCoordinate.getZ());
 	}
 	
 	/**
@@ -141,20 +158,21 @@ public class Coordinate {
 		this.z = z;
 	}
 	
-
-	
 	/**
 	 * Calculates the cartesian distance.
+	 * 
+	 * @see org.wahlzeit.model.Coordinate#getDistance(org.wahlzeit.model.Coordinate)
 	 * 
 	 * @methodtype 
 	 * get method
 	 * 
 	 * @param otherCoordinate
-	 * Other Coordinate object for distance calculation.
+	 * Other CartesianCoordinate object for distance calculation.
 	 * 
 	 * @return
 	 * Calculated cartesian distance.
 	 */
+	@Override
 	public double getDistance(Coordinate otherCoordinate) {
 		
 		//check for Null value
@@ -162,36 +180,95 @@ public class Coordinate {
 			return Double.NaN;
 		}
 		
+		//get cartesian cartseian representation
+		CartesianCoordinate cartesianCoordinate = otherCoordinate.asCartesianCoordinate();
+		
 		//calculate difference for x
-		double tempDeltaX = otherCoordinate.getX() - this.x;
+		double tempDeltaX = cartesianCoordinate.getX() - this.x;
 		//calculate difference for y
-		double tempDeltaY = otherCoordinate.getY() - this.y;
+		double tempDeltaY = cartesianCoordinate.getY() - this.y;
 		//calculate difference for z
-		double tempDeltaZ = otherCoordinate.getZ() - this.z;
+		double tempDeltaZ = cartesianCoordinate.getZ() - this.z;
 		
 		//calculate and return cartesian distance
 		return Math.sqrt((tempDeltaX*tempDeltaX) + (tempDeltaY*tempDeltaY) + (tempDeltaZ*tempDeltaZ));
 	}
 	
+	/**
+	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
+	 */
+	@Override
+	public double getCartesianDistance(Coordinate otherCoordinate) {
+		return this.getDistance(otherCoordinate);
+	}
 
 	/**
-	 * Checks if the two coordinate object are equal.
+	 *
+	 * @see org.wahlzeit.model.Coordinate#asCartestianCoordinate()
+	 */
+	@Override
+	public CartesianCoordinate asCartesianCoordinate() {
+		return new CartesianCoordinate(this);
+	}
+
+	/**
+	 * 
+	 * @see org.wahlzeit.model.Coordinate#getSphericDistance(org.wahlzeit.model.Coordinate)
+	 */
+	@Override
+	public double getSphericDistance(Coordinate otherCoordinate) {
+		return this.asSphericCoordinate().getDistance(otherCoordinate);
+	}
+
+	/**
+	 * 
+	 * @see org.wahlzeit.model.Coordinate#asSphericCoordinate()
+	 */
+	@Override
+	public SphericCoordinate asSphericCoordinate() {
+		//radius
+		double radius = Math.sqrt((this.x*this.x) + (this.y*this.y) + (this.z*this.z));
+		
+		//check for zero and NaN value
+		if (compareDoubles(radius, 0.0) || Double.isNaN(radius)) {
+			return new SphericCoordinate();
+		}
+
+		//longitude ->  horizontal meaning east-west axis
+		double longitude = Math.acos(this.z / radius);
+		
+		//latitude -> vertical meaning north-south axis
+		double latitude = Math.atan2(this.y , this.x); 	//using atan2 because you can pass two arguments and don't have to worry about division by zero
+		
+		return new SphericCoordinate(radius, longitude, latitude);
+	}
+	
+	/**
+	 * Compares two CartesianCoordinate objects for equality.
+	 * 
+	 * @see org.wahlzeit.model.Coordinate#isEqual(org.wahlzeit.model.Coordinate)
 	 * 
 	 * @methodtype 
 	 * bolean query method
 	 * 
 	 * @param otherCoordinate
-	 * Other Coordinate object for comparison.
+	 * Other CartesianCoordinate object for comparison.
 	 * 
 	 * @return
 	 * True if equal otherwise false.
 	 */
+	@Override
 	public boolean isEqual(Coordinate otherCoordinate) {
 		if (otherCoordinate == null) {
 			return false;
 		}
 		
-		return ((compareDoubles(this.x, otherCoordinate.getX())) && (compareDoubles(this.y, otherCoordinate.getY())) && (compareDoubles(this.z, otherCoordinate.getZ())));
+		//get cartesian cartseian representation
+		CartesianCoordinate cartesianCoordinate = otherCoordinate.asCartesianCoordinate();
+		
+		return ((compareDoubles(this.x, cartesianCoordinate.getX())) && 
+				(compareDoubles(this.y, cartesianCoordinate.getY())) && 
+				(compareDoubles(this.z, cartesianCoordinate.getZ())));
 	}
 
 	/**
@@ -213,13 +290,13 @@ public class Coordinate {
 			return false;
 		}
 		
-		//Check if obj is an instance of class Coordinate
-		if (!(obj instanceof Coordinate)) {
+		//Check if obj is an instance of class CartesianCoordinate
+		if (!(obj instanceof CartesianCoordinate)) {
 			return false;
 		}
 		
 		//comparing data by using isEqual-method
-		return this.isEqual((Coordinate) obj);
+		return this.isEqual((CartesianCoordinate) obj);
 	}
 	
 	/**
@@ -263,5 +340,5 @@ public class Coordinate {
 		//first substract and compare absolute value with PRECISION 
 		return Math.abs(firstDouble - secondDouble) < PRECISION;
 	}
-}//end of class Coordinate
+}//end of class CartesianCoordinate
 

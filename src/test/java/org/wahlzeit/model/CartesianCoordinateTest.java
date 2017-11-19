@@ -1,5 +1,5 @@
 /*
- * Classname: CoordinateTest
+ * Classname: CartesianCoordinateTest
  * 
  * Copyright (c) 2017 by Georg Wieland
  *
@@ -29,21 +29,21 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test class for {@link Coordinate} which contains all test cases.
+ * Test class for {@link CartesianCoordinate} which contains all test cases.
  *
  */
-public class CoordinateTest {
-	Coordinate defaultCoordinate;
-	Coordinate parameterizedCoordinate;
+public class CartesianCoordinateTest {
+	CartesianCoordinate defaultCoordinate;
+	CartesianCoordinate parameterizedCoordinate;
 	
 	@Before
 	public void setupCoordinates() {
-		defaultCoordinate = new Coordinate();
-		parameterizedCoordinate = new Coordinate(1.0, 2.0, 3.0);
+		defaultCoordinate = new CartesianCoordinate();
+		parameterizedCoordinate = new CartesianCoordinate(1.0, 2.0, 3.0);
 	}
 	
 	//*************************************************************************
-	//							Coordinate.constructors
+	//							CartesianCoordinate.constructors
 	//*************************************************************************
 	@Test
 	public void testDefaultConstructor() {
@@ -59,9 +59,15 @@ public class CoordinateTest {
 		assertEquals(3.0, parameterizedCoordinate.getZ(), 0.0);
 	}
 	
+	@Test
+	public void testCopyConstructor() {
+		CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(parameterizedCoordinate);
+		assertEquals(parameterizedCoordinate, cartesianCoordinate);
+	}
+	
 	
 	//*************************************************************************
-	//							Coordinate.set-/get-
+	//							CartesianCoordinate.set-/get-
 	//*************************************************************************
 	@Test
 	public void testSetterAndGetter() {
@@ -75,7 +81,7 @@ public class CoordinateTest {
 	
 	
 	//*************************************************************************
-	//							Coordinate.getDistance
+	//							CartesianCoordinate.getDistance
 	//*************************************************************************
 	@Test
 	public void testGetDistanceNull() {
@@ -95,9 +101,35 @@ public class CoordinateTest {
 		assertEquals(3.741657, parameterizedCoordinate.getDistance(defaultCoordinate), 0.000001);
 	}
 	
+	@Test
+	public void testGetCaresianDistanceCalculation() {		
+		assertEquals(3.741657, defaultCoordinate.getCartesianDistance(parameterizedCoordinate), 0.000001);	
+		assertEquals(3.741657, parameterizedCoordinate.getCartesianDistance(defaultCoordinate), 0.000001);
+	}
+	
+	@Test
+	public void testGetSphericDistanceCalculation() {	
+		CartesianCoordinate coordinateIncrXYZ = new CartesianCoordinate( 1, 0, 0);
+		assertEquals(1, defaultCoordinate.getSphericDistance(coordinateIncrXYZ), 0.000001);	
+	}
 	
 	//*************************************************************************
-	//							Coordinate.isEqual
+	//							CartesianCoordinate.asCoordinate methods
+	//*************************************************************************
+	@Test
+	public void testAsSphericCoordinate() {	
+		assertEquals(defaultCoordinate, defaultCoordinate.asSphericCoordinate().asCartesianCoordinate());
+		CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(Double.NaN, Double.NaN, Double.NaN);
+		assertEquals(defaultCoordinate, cartesianCoordinate.asSphericCoordinate().asCartesianCoordinate());
+	}
+	
+	@Test
+	public void testAsCartesianCoordinate() {	
+		assertEquals(defaultCoordinate, defaultCoordinate.asCartesianCoordinate());
+	}
+	
+	//*************************************************************************
+	//							CartesianCoordinate.isEqual
 	//*************************************************************************
 	@Test
 	public void testIsEqualNull() {
@@ -116,19 +148,19 @@ public class CoordinateTest {
 	
 	@Test
 	public void testIsEqualSameDataDifferentObjects() {
-		assertTrue(parameterizedCoordinate.isEqual(new Coordinate(1.0, 2.0, 3.0)));
+		assertTrue(parameterizedCoordinate.isEqual(new CartesianCoordinate(1.0, 2.0, 3.0)));
 		parameterizedCoordinate.setX(1.00025);
 		parameterizedCoordinate.setY(2.00025);
 		parameterizedCoordinate.setZ(3.00025);
-		assertFalse(parameterizedCoordinate.isEqual(new Coordinate(1.00024, 2.00024, 3.00024)));
+		assertFalse(parameterizedCoordinate.isEqual(new CartesianCoordinate(1.00024, 2.00024, 3.00024)));
 		parameterizedCoordinate.setX(1.000025);
 		parameterizedCoordinate.setY(2.000025);
 		parameterizedCoordinate.setZ(3.000025);
-		assertTrue(parameterizedCoordinate.isEqual(new Coordinate(1.000024, 2.000024, 3.000024)));
+		assertTrue(parameterizedCoordinate.isEqual(new CartesianCoordinate(1.000024, 2.000024, 3.000024)));
 	}
 	
 	//*************************************************************************
-	//							Coordinate.equals
+	//							CartesianCoordinate.equals
 	//*************************************************************************
 	@Test
 	public void testEqualNull() {
@@ -148,21 +180,22 @@ public class CoordinateTest {
 	@Test
 	public void testEqualNotEqual() {
 		assertFalse(defaultCoordinate.equals(parameterizedCoordinate));
-		assertFalse(parameterizedCoordinate.equals(new Coordinate(2.0, 2.0, 3.0)));
-		assertFalse(parameterizedCoordinate.equals(new Coordinate(1.0, 1.0, 3.0)));
-		assertFalse(parameterizedCoordinate.equals(new Coordinate(1.0, 2.0, 2.0)));
+		assertFalse(parameterizedCoordinate.equals(new CartesianCoordinate(2.0, 2.0, 3.0)));
+		assertFalse(parameterizedCoordinate.equals(new CartesianCoordinate(1.0, 1.0, 3.0)));
+		assertFalse(parameterizedCoordinate.equals(new CartesianCoordinate(1.0, 2.0, 2.0)));
 	}
 	
 	@Test
 	public void testEqualSameDataDifferentObjects() {
-		assertTrue(parameterizedCoordinate.equals(new Coordinate(1.0, 2.0, 3.0)));
+		assertTrue(parameterizedCoordinate.equals(new CartesianCoordinate(1.0, 2.0, 3.0)));
 	}
 
 	//*************************************************************************
-	//		Coordinate.hashcode
+	//		CartesianCoordinate.hashcode
 	//*************************************************************************
 	@Test
 	public void testHashCode() {
 		assertEquals(parameterizedCoordinate.hashCode(), parameterizedCoordinate.hashCode());
 	}
-} //end of class CoordinateTest
+
+} //end of class CartesianCoordinateTest

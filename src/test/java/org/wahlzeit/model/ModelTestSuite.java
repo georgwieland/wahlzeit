@@ -30,7 +30,8 @@ import org.wahlzeit.model.persistence.PersistenceModelTestSuite;
  * Test Suite for Package {@link org.wahlzeit.model}. Junit will invoke the tests in the classes:
  * 
  * 		{@link AccessRightsTest},
- * 		{@link CoordinateTest},
+ * 		{@link CartesianCoordinateTest},
+ * 		{@link SphericCoordinateTest},
  * 		{@link FlagReasonTest},
  * 		{@link GenderTest},
  * 		{@link GuestTest},
@@ -45,7 +46,8 @@ import org.wahlzeit.model.persistence.PersistenceModelTestSuite;
 @SuiteClasses({ 
 	//Test classes
 	AccessRightsTest.class, 
-	CoordinateTest.class, 
+	CartesianCoordinateTest.class,
+	SphericCoordinateTest.class,
 	FlagReasonTest.class, 
 	GenderTest.class, 
 	GuestTest.class,

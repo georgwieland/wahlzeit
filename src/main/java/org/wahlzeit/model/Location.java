@@ -25,8 +25,8 @@ package org.wahlzeit.model;
  *	Location represents a location where a photo was taken.
  */
 public class Location {
-	//Coordinate member
-	private Coordinate coordinate = new Coordinate();
+	//CartesianCoordinate member
+	private Coordinate cartesianCoordinate = new CartesianCoordinate();
 	
 	
 	/**
@@ -38,14 +38,14 @@ public class Location {
 	/**
 	 * Constructs a Location object with the given argument.
 	 * 
-	 * @param coordinate
-	 * Coordinate object for initialization.
+	 * @param cartesianCoordinate
+	 * CartesianCoordinate object for initialization.
 	 */
-	public Location(Coordinate coordinate) {
-		if (coordinate == null) {
-			throw new IllegalArgumentException("Argument for coordinate shouldn't be null.");
+	public Location(CartesianCoordinate cartesianCoordinate) {
+		if (cartesianCoordinate == null) {
+			throw new IllegalArgumentException("Argument for cartesianCoordinate shouldn't be null.");
 		}
-		this.coordinate = coordinate;
+		this.cartesianCoordinate = cartesianCoordinate;
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class Location {
 	 * Returns the coordinates.
 	 */
 	public Coordinate getCoordinate() {
-		return coordinate;
+		return cartesianCoordinate;
 	}
 
 	/**
@@ -67,14 +67,14 @@ public class Location {
 	 * @methodtype
 	 * set method
 	 * 
-	 * @param coordinate
-	 * Coordinate object for setting the coordinates.
+	 * @param cartesianCoordinate
+	 * CartesianCoordinate object for setting the coordinates.
 	 */
 	public void setCoordinate(Coordinate coordinate) {
 		if (coordinate == null) {
-			throw new IllegalArgumentException("Argument for coordinate shouldn't be null.");
+			throw new IllegalArgumentException("Argument for cartesianCoordinate shouldn't be null.");
 		}
-		this.coordinate = coordinate;
+		this.cartesianCoordinate = coordinate.asCartesianCoordinate();
 	}
 
 
@@ -96,14 +96,14 @@ public class Location {
 			return false;
 		}
 		
-		//Check if obj is an instance of class Coordinate
+		//Check if obj is an instance of class CartesianCoordinate
 		if (!(obj instanceof Location)) {
 			return false;
 		}
 		
 		//comparing data		
 		Location other = (Location) obj;
-		return coordinate.equals(other.coordinate);
+		return cartesianCoordinate.equals(other.cartesianCoordinate);
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class Location {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((coordinate == null) ? 0 : coordinate.hashCode());
+		result = prime * result + ((cartesianCoordinate == null) ? 0 : cartesianCoordinate.hashCode());
 		return result;
 	}	
 } //end of class Location

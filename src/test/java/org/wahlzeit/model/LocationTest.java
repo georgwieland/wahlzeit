@@ -40,7 +40,7 @@ public class LocationTest {
 	@Before
 	public void setupLocation() {
 		defaultLocation = new Location();
-		parameterizedLocation = new Location(new Coordinate(1.0, 2.0, 3.0));
+		parameterizedLocation = new Location(new CartesianCoordinate(1.0, 2.0, 3.0));
 	}
 	
 	//*************************************************************************
@@ -48,12 +48,12 @@ public class LocationTest {
 	//*************************************************************************
 	@Test
 	public void testDefaultConstructor() {
-		assertEquals(new Coordinate(), defaultLocation.getCoordinate());
+		assertEquals(new CartesianCoordinate(), defaultLocation.getCoordinate());
 	}
 	
 	@Test
 	public void testParameterizedConstructor() {
-		assertEquals(new Coordinate(1.0, 2.0, 3.0), parameterizedLocation.getCoordinate());
+		assertEquals(new CartesianCoordinate(1.0, 2.0, 3.0), parameterizedLocation.getCoordinate());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -66,8 +66,8 @@ public class LocationTest {
 	//*************************************************************************
 	@Test
 	public void testSetAndGet() {
-		defaultLocation.setCoordinate(new Coordinate(2.0, 2.0, 2.0));
-		assertEquals(new Coordinate(2.0, 2.0, 2.0), defaultLocation.getCoordinate());
+		defaultLocation.setCoordinate(new CartesianCoordinate(2.0, 2.0, 2.0));
+		assertEquals(new CartesianCoordinate(2.0, 2.0, 2.0), defaultLocation.getCoordinate());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
