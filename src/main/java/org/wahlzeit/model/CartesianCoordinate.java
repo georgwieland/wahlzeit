@@ -196,6 +196,8 @@ public class CartesianCoordinate implements Coordinate{
 	
 	/**
 	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
+	 * 
+	 * @methodtype get method
 	 */
 	@Override
 	public double getCartesianDistance(Coordinate otherCoordinate) {
@@ -205,6 +207,8 @@ public class CartesianCoordinate implements Coordinate{
 	/**
 	 *
 	 * @see org.wahlzeit.model.Coordinate#asCartestianCoordinate()
+	 * 
+	 * @methodtype conversion method
 	 */
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
@@ -214,6 +218,8 @@ public class CartesianCoordinate implements Coordinate{
 	/**
 	 * 
 	 * @see org.wahlzeit.model.Coordinate#getSphericDistance(org.wahlzeit.model.Coordinate)
+	 * 
+	 * @methodtype get method
 	 */
 	@Override
 	public double getSphericDistance(Coordinate otherCoordinate) {
@@ -223,6 +229,8 @@ public class CartesianCoordinate implements Coordinate{
 	/**
 	 * 
 	 * @see org.wahlzeit.model.Coordinate#asSphericCoordinate()
+	 * 
+	 * @methodtype conversion method
 	 */
 	@Override
 	public SphericCoordinate asSphericCoordinate() {

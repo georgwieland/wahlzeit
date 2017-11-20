@@ -183,6 +183,8 @@ public class SphericCoordinate implements Coordinate {
 
 	/**
 	 * @see org.wahlzeit.model.Coordinate#getDistance(org.wahlzeit.model.Coordinate)
+	 * 
+	 * @methodtype get method
 	 */
 	@Override
 	public double getDistance(Coordinate otherCoordinate) {
@@ -206,6 +208,8 @@ public class SphericCoordinate implements Coordinate {
 
 	/**
 	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
+	 * 
+	 * @methodtype get method
 	 */
 	@Override
 	public double getCartesianDistance(Coordinate otherCoordinate) {
@@ -214,6 +218,8 @@ public class SphericCoordinate implements Coordinate {
 
 	/**
 	 * @see org.wahlzeit.model.Coordinate#asCartestianDistance()
+	 * 
+	 * @methodtype conversion method
 	 */
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
@@ -226,6 +232,8 @@ public class SphericCoordinate implements Coordinate {
 
 	/**
 	 * @see org.wahlzeit.model.Coordinate#getSphericDistance(org.wahlzeit.model.Coordinate)
+	 * 
+	 * @methodtype get method
 	 */
 	@Override
 	public double getSphericDistance(Coordinate otherCoordinate) {
@@ -234,6 +242,8 @@ public class SphericCoordinate implements Coordinate {
 
 	/**
 	 * @see org.wahlzeit.model.Coordinate#asSphericDistance()
+	 * 
+	 * @methodtype conversion method
 	 */
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
@@ -243,7 +253,11 @@ public class SphericCoordinate implements Coordinate {
 	/**
 	 * Check if radius value is greater than zero.
 	 * 
+	 * @methodtype
+	 * helper method
+	 * 
 	 * @param radius
+	 * Radius value which will be checked
 	 */
 	private void assertIsPositiveRadius(double radius) {
 		if (radius < 0.0) {
@@ -254,7 +268,11 @@ public class SphericCoordinate implements Coordinate {
 	/**
 	 * Check if longitude value is between -pi and +pi.
 	 * 
+	 * @methodtype
+	 * helper method
+	 * 
 	 * @param longitude
+	 * Longitude value which will be checked
 	 */
 	private void assertIsValidLongitude(double longitude) {
 		if ((longitude < -Math.PI) || (longitude > Math.PI)) {
@@ -265,7 +283,11 @@ public class SphericCoordinate implements Coordinate {
 	/**
 	 * Check if latitude is greater than zero and less than +pi.
 	 * 
+	 * @methodtype
+	 * helper method
+	 * 
 	 * @param latitude
+	 * Latitude value which will be checked
 	 */
 	private void assertIsValidLatitude(double latitude) {
 		if ((latitude < 0.0) || (latitude > Math.PI)) {
