@@ -25,7 +25,7 @@ package org.wahlzeit.model;
  * SphericCoordinate is represented by radius, longitude and latitude.
  *
  */
-public class SphericCoordinate implements Coordinate {
+public class SphericCoordinate extends AbstractCoordinate {
 
 	//radius which is the radial distance to the origin
 	private double radius;
@@ -159,48 +159,31 @@ public class SphericCoordinate implements Coordinate {
 	}
 
 	/**
-	 * @see org.wahlzeit.model.Coordinate#isEqual(org.wahlzeit.model.Coordinate)
-	 * 
-	 * @methodtype boolean query method
-	 */
-	@Override
-	public boolean isEqual(Coordinate otherCoordinate) {
-		
-		if (otherCoordinate == null) {
-			return false;
-		}
-		
-		//get cartesian cartseian representation
-		SphericCoordinate sphericCoordinate = otherCoordinate.asSphericCoordinate();
-		
-		return ((compareDoubles(this.radius, sphericCoordinate.getRadius())) && 
-				(compareDoubles(this.longitude, sphericCoordinate.getLongitude())) && 
-				(compareDoubles(this.latitude, sphericCoordinate.getLatitude())));
-	}
-
-	/**
-	 * @see org.wahlzeit.model.Coordinate#getDistance(org.wahlzeit.model.Coordinate)
-	 * 
-	 * @methodtype get method
-	 */
-	@Override
-	public double getDistance(Coordinate otherCoordinate) {
-		//check for Null value
-		if (otherCoordinate == null) {
-			return Double.NaN;
-		}
-		
-		return this.asCartesianCoordinate().getCartesianDistance(otherCoordinate);
-	}
-
-	/**
 	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
 	 * 
 	 * @methodtype get method
 	 */
 	@Override
-	public double getCartesianDistance(Coordinate otherCoordinate) {
+	protected double doGetCartesianDistance(Coordinate otherCoordinate) {
 		return this.asCartesianCoordinate().getDistance(otherCoordinate);
+	}
+	
+	/**
+	 * @see org.wahlzeit.model.Coordinate#getSphericDistance(org.wahlzeit.model.Coordinate)
+	 * 
+	 * @methodtype get method
+	 */
+	@Override
+	protected double doGetSphericDistance(Coordinate otherCoordinate) {
+		
+		SphericCoordinate sphericCoordinate = otherCoordinate.asSphericCoordinate();
+		//using getDistance of class CartesianCoordinate
+		double thisRadius = this.radius * this.radius;
+		double otherRadius = sphericCoordinate.getRadius() * sphericCoordinate.getRadius();
+		double angle = 	2 * this.radius * sphericCoordinate.getRadius() * 
+						(Math.sin(this.longitude) * Math.sin(sphericCoordinate.getLongitude()) * Math.cos(this.latitude - sphericCoordinate.getLatitude()) +
+						Math.cos(this.longitude) * Math.cos(sphericCoordinate.getLongitude()));
+		return Math.sqrt(thisRadius + otherRadius - angle);
 	}
 
 	/**
@@ -218,28 +201,6 @@ public class SphericCoordinate implements Coordinate {
 	}
 
 	/**
-	 * @see org.wahlzeit.model.Coordinate#getSphericDistance(org.wahlzeit.model.Coordinate)
-	 * 
-	 * @methodtype get method
-	 */
-	@Override
-	public double getSphericDistance(Coordinate otherCoordinate) {
-		//check for Null value
-		if (otherCoordinate == null) {
-			return Double.NaN;
-		}
-		
-		SphericCoordinate sphericCoordinate = otherCoordinate.asSphericCoordinate();
-		//using getDistance of class CartesianCoordinate
-		double thisRadius = this.radius * this.radius;
-		double otherRadius = sphericCoordinate.getRadius() * sphericCoordinate.getRadius();
-		double angle = 	2 * this.radius * sphericCoordinate.getRadius() * 
-						(Math.sin(this.longitude) * Math.sin(sphericCoordinate.getLongitude()) * Math.cos(this.latitude - sphericCoordinate.getLatitude()) +
-						Math.cos(this.longitude) * Math.cos(sphericCoordinate.getLongitude()));
-		return Math.sqrt(thisRadius + otherRadius - angle);
-	}
-
-	/**
 	 * @see org.wahlzeit.model.Coordinate#asSphericDistance()
 	 * 
 	 * @methodtype conversion method
@@ -248,6 +209,22 @@ public class SphericCoordinate implements Coordinate {
 	public SphericCoordinate asSphericCoordinate() {
 		return new SphericCoordinate(this);
 	}
+	
+	/**
+	 * @see org.wahlzeit.model.Coordinate#isEqual(org.wahlzeit.model.Coordinate)
+	 * 
+	 * @methodtype boolean query method
+	 */
+	@Override
+	protected boolean doIsEqual(Coordinate otherCoordinate) {
+		//get cartesian cartseian representation
+		SphericCoordinate sphericCoordinate = otherCoordinate.asSphericCoordinate();
+		
+		return ((compareDoubles(this.radius, sphericCoordinate.getRadius(), PRECISION)) && 
+				(compareDoubles(this.longitude, sphericCoordinate.getLongitude(), PRECISION)) && 
+				(compareDoubles(this.latitude, sphericCoordinate.getLatitude(), PRECISION)));
+	}
+
 		
 	/**
 	 * Check if radius value is greater than zero.
@@ -294,32 +271,6 @@ public class SphericCoordinate implements Coordinate {
 		}
 	}
 	
-	/**
-	 * Overriding equals method.
-	 * 
-	 * @methodtype 
-	 * bolean query method
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		//check for comparison with itself
-		if (obj == this) {
-			return true;
-		}
-				
-		//check for Null value
-		if (obj == null) {
-			return false;
-		}
-				
-		//Check if obj is an instance of class SphericCoordinate
-		if (!(obj instanceof Coordinate)) {
-			return false;
-		}
-				
-		//comparing data by using isEqual-method
-		return this.isEqual((Coordinate) obj);
-	}
 	
 	/**
 	 * It is recommended to override the hashcode method when overriding the equals method 
@@ -338,28 +289,5 @@ public class SphericCoordinate implements Coordinate {
 		temp = Double.doubleToLongBits(radius);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
-	}
-	
-	/**
-	 * Comparing two doubles taking rounding error into account.
-	 * 
-	 * @method type
-	 * bolean query method
-	 * 
-	 * @param firstDouble
-	 * First double value for comparison.
-	 * 
-	 * @param secondDouble
-	 * Second double value for comparison.
-	 * 
-	 * @return
-	 * True if equal otherwise false.
-	 */
-	private static boolean compareDoubles(double firstDouble, double secondDouble) {
-		if (Double.isNaN(firstDouble) || Double.isNaN(secondDouble)) {
-			return false;
-		}
-		//first substract and compare absolute value with PRECISION 
-		return Math.abs(firstDouble - secondDouble) < PRECISION;
 	}
 }//end of class SphericCoordinate

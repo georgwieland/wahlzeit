@@ -81,10 +81,10 @@ public class SphericCoordinateTest {
 	//*************************************************************************
 	//				SphericCoordinate.getDistance
 	//*************************************************************************
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testGetDistanceNull() {
 		//check null value
-		assertEquals(Double.NaN, defaultCoordinate.getDistance(null), 0.0);
+		defaultCoordinate.getDistance(null);
 	}
 	
 	@Test
@@ -100,10 +100,20 @@ public class SphericCoordinateTest {
 		assertEquals(0.76536686, parameterizedCoordinate.getDistance(sphericCoordinate), 0.000001);
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetCaresianDistanceNull() {	
+		defaultCoordinate.getCartesianDistance(null);
+	}
+	
 	@Test
 	public void testGetCaresianDistanceCalculation() {	
 		SphericCoordinate sphericCoordinate = new SphericCoordinate( 1, 0, 0);
 		assertEquals(1, defaultCoordinate.getCartesianDistance(sphericCoordinate), 0.000001);	
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testSphericDistanceNull() {	
+		defaultCoordinate.getSphericDistance(null);
 	}
 	
 	@Test
