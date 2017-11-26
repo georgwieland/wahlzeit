@@ -60,9 +60,6 @@ public class SphericCoordinate implements Coordinate {
 		this.setRadius(radius);
 		this.setLongitude(longitude);
 		this.setLatitude(latitude);
-		this.radius = radius;
-		this.longitude = longitude;
-		this.latitude = latitude;
 	}
 	
 	
@@ -188,22 +185,12 @@ public class SphericCoordinate implements Coordinate {
 	 */
 	@Override
 	public double getDistance(Coordinate otherCoordinate) {
-		
 		//check for Null value
 		if (otherCoordinate == null) {
 			return Double.NaN;
 		}
 		
-		SphericCoordinate sphericCoordinate = otherCoordinate.asSphericCoordinate();
-		//using getDistance of class CartesianCoordinate
-		double thisRadius = this.radius * this.radius;
-		double otherRadius = sphericCoordinate.getRadius() * sphericCoordinate.getRadius();
-		double angle = 	2 * this.radius * sphericCoordinate.getRadius() * 
-						(Math.sin(this.longitude) * Math.sin(sphericCoordinate.getLongitude()) * Math.cos(this.latitude - sphericCoordinate.getLatitude()) +
-						Math.cos(this.longitude) * Math.cos(sphericCoordinate.getLongitude()));
-		return Math.sqrt(thisRadius + otherRadius - angle);
-//		CartesianCoordinate cartesianCoordinate = otherCoordinate.asCartesianCoordinate();
-//		return cartesianCoordinate.getDistance(cartesianCoordinate);
+		return this.asCartesianCoordinate().getCartesianDistance(otherCoordinate);
 	}
 
 	/**
@@ -237,7 +224,19 @@ public class SphericCoordinate implements Coordinate {
 	 */
 	@Override
 	public double getSphericDistance(Coordinate otherCoordinate) {
-		return this.getDistance(otherCoordinate);
+		//check for Null value
+		if (otherCoordinate == null) {
+			return Double.NaN;
+		}
+		
+		SphericCoordinate sphericCoordinate = otherCoordinate.asSphericCoordinate();
+		//using getDistance of class CartesianCoordinate
+		double thisRadius = this.radius * this.radius;
+		double otherRadius = sphericCoordinate.getRadius() * sphericCoordinate.getRadius();
+		double angle = 	2 * this.radius * sphericCoordinate.getRadius() * 
+						(Math.sin(this.longitude) * Math.sin(sphericCoordinate.getLongitude()) * Math.cos(this.latitude - sphericCoordinate.getLatitude()) +
+						Math.cos(this.longitude) * Math.cos(sphericCoordinate.getLongitude()));
+		return Math.sqrt(thisRadius + otherRadius - angle);
 	}
 
 	/**
@@ -314,12 +313,12 @@ public class SphericCoordinate implements Coordinate {
 		}
 				
 		//Check if obj is an instance of class SphericCoordinate
-		if (!(obj instanceof SphericCoordinate)) {
+		if (!(obj instanceof Coordinate)) {
 			return false;
 		}
 				
 		//comparing data by using isEqual-method
-		return this.isEqual((SphericCoordinate) obj);
+		return this.isEqual((Coordinate) obj);
 	}
 	
 	/**

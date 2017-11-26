@@ -47,11 +47,6 @@ public class LocationTest {
 	//		Location.constructors
 	//*************************************************************************
 	@Test
-	public void testDefaultConstructor() {
-		assertEquals(new CartesianCoordinate(), defaultLocation.getCoordinate());
-	}
-	
-	@Test
 	public void testParameterizedConstructor() {
 		assertEquals(new CartesianCoordinate(1.0, 2.0, 3.0), parameterizedLocation.getCoordinate());
 	}
@@ -96,6 +91,7 @@ public class LocationTest {
 	
 	@Test
 	public void testEqualNotEqual() {
+		defaultLocation.setCoordinate(new CartesianCoordinate());
 		assertFalse(defaultLocation.equals(parameterizedLocation));
 	}
 	

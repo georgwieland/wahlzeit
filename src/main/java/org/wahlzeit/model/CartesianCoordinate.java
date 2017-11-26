@@ -174,6 +174,21 @@ public class CartesianCoordinate implements Coordinate{
 	 */
 	@Override
 	public double getDistance(Coordinate otherCoordinate) {
+		//check for Null value
+		if (otherCoordinate == null) {
+			return Double.NaN;
+		}
+		
+		return this.getCartesianDistance(otherCoordinate);
+	}
+	
+	/**
+	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
+	 * 
+	 * @methodtype get method
+	 */
+	@Override
+	public double getCartesianDistance(Coordinate otherCoordinate) {
 		
 		//check for Null value
 		if (otherCoordinate == null) {
@@ -192,16 +207,6 @@ public class CartesianCoordinate implements Coordinate{
 		
 		//calculate and return cartesian distance
 		return Math.sqrt((tempDeltaX*tempDeltaX) + (tempDeltaY*tempDeltaY) + (tempDeltaZ*tempDeltaZ));
-	}
-	
-	/**
-	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
-	 * 
-	 * @methodtype get method
-	 */
-	@Override
-	public double getCartesianDistance(Coordinate otherCoordinate) {
-		return this.getDistance(otherCoordinate);
 	}
 
 	/**
@@ -299,12 +304,12 @@ public class CartesianCoordinate implements Coordinate{
 		}
 		
 		//Check if obj is an instance of class CartesianCoordinate
-		if (!(obj instanceof CartesianCoordinate)) {
+		if (!(obj instanceof Coordinate)) {
 			return false;
 		}
 		
 		//comparing data by using isEqual-method
-		return this.isEqual((CartesianCoordinate) obj);
+		return this.isEqual((Coordinate) obj);
 	}
 	
 	/**

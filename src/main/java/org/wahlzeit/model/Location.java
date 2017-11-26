@@ -26,7 +26,7 @@ package org.wahlzeit.model;
  */
 public class Location {
 	//CartesianCoordinate member
-	private Coordinate cartesianCoordinate = new CartesianCoordinate();
+	private Coordinate coordinate;
 	
 	
 	/**
@@ -41,11 +41,11 @@ public class Location {
 	 * @param cartesianCoordinate
 	 * CartesianCoordinate object for initialization.
 	 */
-	public Location(CartesianCoordinate cartesianCoordinate) {
-		if (cartesianCoordinate == null) {
+	public Location(Coordinate otherCoordinate) {
+		if (otherCoordinate == null) {
 			throw new IllegalArgumentException("Argument for cartesianCoordinate shouldn't be null.");
 		}
-		this.cartesianCoordinate = cartesianCoordinate;
+		this.coordinate = otherCoordinate;
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class Location {
 	 * Returns the coordinates.
 	 */
 	public Coordinate getCoordinate() {
-		return cartesianCoordinate;
+		return coordinate;
 	}
 
 	/**
@@ -70,11 +70,11 @@ public class Location {
 	 * @param cartesianCoordinate
 	 * CartesianCoordinate object for setting the coordinates.
 	 */
-	public void setCoordinate(Coordinate coordinate) {
-		if (coordinate == null) {
+	public void setCoordinate(Coordinate otherCoordinate) {
+		if (otherCoordinate == null) {
 			throw new IllegalArgumentException("Argument for cartesianCoordinate shouldn't be null.");
 		}
-		this.cartesianCoordinate = coordinate.asCartesianCoordinate();
+		this.coordinate = otherCoordinate;
 	}
 
 
@@ -103,7 +103,7 @@ public class Location {
 		
 		//comparing data		
 		Location other = (Location) obj;
-		return cartesianCoordinate.equals(other.cartesianCoordinate);
+		return coordinate.equals(other.coordinate);
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class Location {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cartesianCoordinate == null) ? 0 : cartesianCoordinate.hashCode());
+		result = prime * result + ((coordinate == null) ? 0 : coordinate.hashCode());
 		return result;
 	}	
 } //end of class Location
