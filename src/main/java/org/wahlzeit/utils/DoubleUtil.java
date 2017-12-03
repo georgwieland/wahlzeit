@@ -1,5 +1,5 @@
 /*
- * Classname: AbstractCoordinate
+ * Classname: DoubleUtil
  * 
  * Copyright (c) 2017 by Georg Wieland
  *
@@ -23,7 +23,7 @@ package org.wahlzeit.utils;
 
 /**
  * 
- * @author dpgwieland
+ * Provides methods for double comparison.
  *
  */
 public class DoubleUtil {
@@ -31,7 +31,7 @@ public class DoubleUtil {
 	/**
 	 * Comparing two doubles taking rounding error into account.
 	 * 
-	 * @method type
+	 * @methodtype
 	 * bolean query method
 	 * 
 	 * @param firstDouble
@@ -44,10 +44,10 @@ public class DoubleUtil {
 	 * True if equal otherwise false.
 	 */
 	public static boolean compareDoubles(double firstDouble, double secondDouble, double precision) {
-		if (Double.isNaN(firstDouble) || Double.isNaN(secondDouble)) {
+		if (Double.isNaN(firstDouble) || Double.isNaN(secondDouble) || Double.isNaN(precision)) {
 			return false;
 		}
 		//first substract and compare absolute value with PRECISION 
 		return Math.abs(firstDouble - secondDouble) < precision;
 	}
-}
+} //end of class DoubleUtil
