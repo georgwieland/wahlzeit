@@ -129,8 +129,6 @@ public class CartesianCoordinateTest {
 	@Test
 	public void testAsSphericCoordinate() {	
 		assertEquals(defaultCoordinate, defaultCoordinate.asSphericCoordinate().asCartesianCoordinate());
-		CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(Double.NaN, Double.NaN, Double.NaN);
-		assertEquals(defaultCoordinate, cartesianCoordinate.asSphericCoordinate().asCartesianCoordinate());
 	}
 	
 	@Test

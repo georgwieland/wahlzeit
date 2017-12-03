@@ -55,6 +55,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * Constructs a CartesianCoordinate object with the given arguments.
 	 * 
 	 * @methodtype constructor
+	 * 
+	 * @invariant will be checked after instantiation
+	 * 
+	 * @precondition (value != NaN)
+	 * 
 	 * @param x
 	 * x coordinate for initialization.
 	 * 
@@ -65,9 +70,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * z coordinate for initialization.
 	 */
 	public CartesianCoordinate(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		this.setX(x);
+		this.setY(y);
+		this.setZ(z);
+		
+		//Check class invariants after instantiation. 
+		//Not necessary for other constructors because they are just convenience constructors which call this one
+		assertImplementationClassInvariant();
 	}
 	
 	/**
@@ -88,6 +97,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @methodtype 
 	 * get method
 	 * 
+	 * @invariant since object state will not be changed and the
+	 * method is not that complex invariant check is not necessary
+	 * 
 	 * @return
 	 * Return x coordinate
 	 */
@@ -101,11 +113,23 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @methodtype 
 	 * set method
 	 * 
+	 * @invariant (members != NaN)
+	 * 
+	 * @precondition (value != NaN)
+	 *  
 	 * @param x
 	 * x coordinate
 	 */
 	public void setX(double x) {
+		//check class invariant before changing objects state
+		assertImplementationClassInvariant();
+		
+		assertIsValidCoordinateValue(x);
+		
 		this.x = x;
+		
+		//check class invariant after changing objects state
+		assertImplementationClassInvariant();
 	}
 	
 	/**
@@ -113,6 +137,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 * @methodtype 
 	 * get method
+	 * 
+	 * @invariant since object state will not be changed and the
+	 * method is not that complex invariant check is not necessary
 	 * 
 	 * @return
 	 * Return y coordinate
@@ -127,11 +154,23 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @methodtype 
 	 * set method
 	 * 
+	 * @invariant (members != NaN)
+	 * 
+	 * @precondition (value != NaN)
+	 * 
 	 * @param y
 	 * y coordinate
 	 */
 	public void setY(double y) {
+		//check class invariant before changing objects state
+		assertImplementationClassInvariant();
+		
+		assertIsValidCoordinateValue(y);
+		
 		this.y = y;
+		
+		//check class invariant after changing objects state
+		assertImplementationClassInvariant();
 	}
 
 	/**
@@ -139,6 +178,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 * @methodtype 
 	 * get method
+	 * 
+	 * @invariant since object state will not be changed and the
+	 * method is not that complex invariant check is not necessary
 	 * 
 	 * @return
 	 * Return z coordinate
@@ -153,11 +195,23 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @methodtype 
 	 * set method
 	 * 
+	 * @invariant (members != NaN)
+	 * 
+	 * @precondition (value != NaN)
+	 * 
 	 * @param z
 	 * z coordinate
 	 */
 	public void setZ(double z) {
+		//check class invariant before changing objects state
+		assertImplementationClassInvariant();
+		
+		assertIsValidCoordinateValue(z);
+		
 		this.z = z;
+		
+		//check class invariant after changing objects state
+		assertImplementationClassInvariant();
 	}
 	
 
@@ -165,6 +219,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
 	 * 
 	 * @methodtype get method
+	 * 
+	 * @invariant will be checked by AbstractCoordinate
+	 * 
+	 * @precondition will be checked by AbstractCoordinate
+	 * 
+	 * @postcondition will be checked by AbstractCoordinate
+	 * 
 	 */
 	@Override
 	protected double doGetCartesianDistance(Coordinate otherCoordinate) {		
@@ -187,6 +248,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @see org.wahlzeit.model.Coordinate#getSphericDistance(org.wahlzeit.model.Coordinate)
 	 * 
 	 * @methodtype get method
+	 * 
+	 * @invariant will be checked by AbstractCoordinate
+	 * 
+	 * @precondition will be checked by AbstractCoordinate
+	 * 
+	 * @postcondition will be checked by AbstractCoordinate
+	 * 
 	 */
 	@Override
 	protected double doGetSphericDistance(Coordinate otherCoordinate) {
@@ -198,9 +266,16 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @see org.wahlzeit.model.Coordinate#asCartestianCoordinate()
 	 * 
 	 * @methodtype conversion method
+	 * 
+	 * @invariant will be checked by AbstractCoordinate
+	 * 
+	 * @precondition will be checked by AbstractCoordinate
+	 * 
+	 * @postcondition will be checked by AbstractCoordinate
+	 * 
 	 */
 	@Override
-	public CartesianCoordinate asCartesianCoordinate() {
+	public CartesianCoordinate doAsCartesianCoordinate() {
 		return new CartesianCoordinate(this);
 	}
 	
@@ -209,9 +284,16 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @see org.wahlzeit.model.Coordinate#asSphericCoordinate()
 	 * 
 	 * @methodtype conversion method
+	 * 
+	 * @invariant will be checked by AbstractCoordinate
+	 * 
+	 * @precondition will be checked by AbstractCoordinate
+	 * 
+	 * @postcondition will be checked by AbstractCoordinate
+	 * 
 	 */
 	@Override
-	public SphericCoordinate asSphericCoordinate() {
+	public SphericCoordinate doAsSphericCoordinate() {
 		//radius
 		double radius = Math.sqrt((this.x*this.x) + (this.y*this.y) + (this.z*this.z));
 		
@@ -234,7 +316,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 *  
 	 * @methodtype 
 	 * bolean query method
-	 *  
+	 * 
+	 * @invariant will be checked by AbstractCoordinate
+	 * 
+	 * @precondition will be checked by AbstractCoordinate
+	 * 
+	 * @postcondition will be checked by AbstractCoordinate
+	 *   
 	 * @param otherCoordinate
 	 * Other CartesianCoordinate object for comparison.
 	 * 
@@ -243,7 +331,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	@Override
 	protected boolean doIsEqual(Coordinate otherCoordinate) {
-		//get cartesian cartseian representation
+		//get cartesian representation
 		CartesianCoordinate cartesianCoordinate = otherCoordinate.asCartesianCoordinate();
 		
 		return ((DoubleUtil.compareDoubles(this.x, cartesianCoordinate.getX(), PRECISION)) && 
@@ -259,6 +347,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	@Override
 	public int hashCode() {
+		//check class invariant before
+		assertImplementationClassInvariant();
+		
 		final int prime = 31;
 		int result = 1;
 		long temp;
@@ -268,7 +359,43 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		temp = Double.doubleToLongBits(z);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		
+		//check class invariant after
+		assertImplementationClassInvariant();
+		
 		return result;
 	}	
+	
+	/**
+	 * Check if value is not NaN
+	 * 
+	 * @param value
+	 * Value which will be checked
+	 */
+	private void assertIsValidCoordinateValue(double value) {
+		if (Double.isNaN(value)) {
+			throw new IllegalArgumentException("Value should not be NaN.");
+		}
+	}
+	
+	/**
+	 * Checks if 
+	 * 		x != NaN
+	 * 		y != NaN
+	 * 		z != NaN
+	 * 
+	 * @methodtype assertion
+	 */
+	@Override
+	protected void assertImplementationClassInvariant() {
+		//check radius
+		assert (!Double.isNaN(x));
+		
+		//check longitude
+		assert (!Double.isNaN(y));
+		
+		//check latitude
+		assert (!Double.isNaN(z));
+	}
 }//end of class CartesianCoordinate
 

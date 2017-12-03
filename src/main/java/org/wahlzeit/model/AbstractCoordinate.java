@@ -35,6 +35,12 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype 
 	 * get method
 	 * 
+	 * @invariant is specified by subclass
+	 * 
+	 * @precondition (arg != null)
+	 * 
+	 * @postcondition (distance >= zero)
+	 * 
 	 * @param coordinate
 	 * Other coordinate object for distance calculation.
 	 * 
@@ -43,8 +49,21 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	@Override
 	public double getDistance(Coordinate otherCoordinate) {
-		assertIsCoordinateNull(otherCoordinate);
-		return getCartesianDistance(otherCoordinate);
+		//check class invariant by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//therefore a check will only be done in the superclass AbstractCoordinate
+		assertClassInvariants();
+		
+		//precondition argument not null
+		assertIsCoordinateArgumentNull(otherCoordinate);
+		
+		double tempDistance = doGetCartesianDistance(otherCoordinate);
+		
+		//postcondition distance greater than zero
+		assertIsDistanceGreaterThanZero(tempDistance);
+		
+		//check class invariant again
+		assertClassInvariants();
+		return tempDistance;
 	}
 
 	/**
@@ -53,14 +72,34 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype 
 	 * get method
 	 * 
+	 * @invariant is specified by subclass
+	 * 
+	 * @precondition (arg != null)
+	 * 
+	 * @postcondition (distance >= zero)
+	 * 
 	 * @param coordinate
 	 * @return
 	 * Value for the distance.
 	 */
 	@Override
 	public double getCartesianDistance(Coordinate otherCoordinate) {
-		assertIsCoordinateNull(otherCoordinate);
-		return doGetCartesianDistance(otherCoordinate);
+		//check class invariants by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//therefore a check will only be done in the superclass AbstractCoordinate
+		assertClassInvariants();
+		
+		//precondition argument not null
+		assertIsCoordinateArgumentNull(otherCoordinate);
+		
+		double tempDistance = doGetCartesianDistance(otherCoordinate);
+		
+		//postcondition distance greater than zero
+		assertIsDistanceGreaterThanZero(tempDistance);
+		
+		//check class invariant again
+		assertClassInvariants();
+		
+		return tempDistance;
 	}
 	
 	/**
@@ -69,6 +108,12 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype 
 	 * get method
 	 * 
+	 * @invariant is specified by subclass
+	 * 
+	 * @precondition (arg != null)
+	 * 
+	 * @postcondition (distance >= zero)
+	 *  
 	 * @param coordinate
 	 * Other coordinate object for spheric distance calculation.
 	 * 
@@ -77,8 +122,21 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	@Override
 	public double getSphericDistance(Coordinate otherCoordinate) {
-		assertIsCoordinateNull(otherCoordinate);
-		return doGetSphericDistance(otherCoordinate);
+		//check class invariants by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//therefore a check will only be done in the superclass AbstractCoordinate
+		assertClassInvariants();
+		
+		//precondition argument not null
+		assertIsCoordinateArgumentNull(otherCoordinate);
+		
+		double tempDistance = doGetSphericDistance(otherCoordinate);
+		
+		//postcondition distance greater than zero
+		assertIsDistanceGreaterThanZero(tempDistance);
+		
+		//check class invariant again
+		assertClassInvariants();
+		return tempDistance;
 	}
 	
 	/**
@@ -87,11 +145,29 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype 
 	 * conversion method
 	 * 
+	 * @invariant is specified by subclass
+	 *  
+	 * @postcondition (coordinate != null)
+	 * 
 	 * @return
 	 * New CartesianCoordinate object.
 	 */
 	@Override
-	public abstract CartesianCoordinate asCartesianCoordinate();
+	public CartesianCoordinate asCartesianCoordinate() {
+		//check class invariant by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//therefore a check will only be done in the superclass AbstractCoordinate
+		assertClassInvariants();
+		
+		CartesianCoordinate cartesianCoordinate = doAsCartesianCoordinate();
+		
+		//postcondition returned coordinate object not null
+		assertIsCoordinateResultNull(cartesianCoordinate);
+		
+		//check class invariant again
+		assertClassInvariants();
+		
+		return cartesianCoordinate;
+	}
 	
 	/**
 	 * @see org.wahlzeit.model.Coordinate#asSphericCoordinate()
@@ -99,22 +175,48 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype 
 	 * conversion method
 	 * 
+	 * @invariant is specified by subclass
+	 *  
+	 * @postcondition (coordinate != null)
+	 * 
 	 * @return
 	 * New SphericCoordinate object.
 	 */
 	@Override
-	public abstract SphericCoordinate asSphericCoordinate();
+	public SphericCoordinate asSphericCoordinate() {
+		//check class invariant by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//therefore a check will only be done in the superclass AbstractCoordinate
+		assertClassInvariants();
+		
+		SphericCoordinate sphericCoordinate = doAsSphericCoordinate();
+		
+		//postcondition returned coordinate object not null
+		assertIsCoordinateResultNull(sphericCoordinate);
+		
+		//check class invariant again
+		assertClassInvariants();
+		
+		return sphericCoordinate;
+	}
 		
 	/**
 	 * 
 	 * @methodtype 
 	 * bolean query method
 	 * 
+	 * @invariant is specified by subclass
+	 *  
 	 * @param obj
+	 * 
 	 * @return
+	 * True if equal otherwise false.
 	 */
 	@Override
 	public boolean equals(Object obj) {
+		//check class invariant by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//therefore a check will only be done in the superclass AbstractCoordinate
+		assertClassInvariants();
+		
 		//check for comparison with itself
 		if (obj == this) {
 			return true;
@@ -131,7 +233,11 @@ public abstract class AbstractCoordinate implements Coordinate {
 		}
 		
 		//comparing data by using isEqual-method
-		return this.isEqual((Coordinate) obj);
+		boolean result = this.isEqual((Coordinate) obj);
+		
+		//check class invariant again
+		assertClassInvariants();
+		return result;
 	}
 	
 	/**
@@ -139,6 +245,8 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * 
 	 * @methodtype 
 	 * boolean query method
+	 * 
+	 * @invariant is specified by subclass
 	 * 
 	 * @param coordinate
 	 * Other coordinate object for comparisson.
@@ -148,10 +256,19 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	@Override
 	public boolean isEqual(Coordinate otherCoordinate) {
+		//check class invariant by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//therefore a check will only be done in the superclass AbstractCoordinate
+		assertClassInvariants();
+		
 		if (otherCoordinate == null) {
 			return false;
 		}
-		return doIsEqual(otherCoordinate);
+		
+		boolean result =  doIsEqual(otherCoordinate);
+		
+		//check class invariant again
+		assertClassInvariants();
+		return result;
 	}
 	
 	/**
@@ -161,6 +278,11 @@ public abstract class AbstractCoordinate implements Coordinate {
 	public abstract int hashCode();
 	
 	/**
+	 * @methodtype 
+	 * get method
+	 * 
+	 * @methodproperties
+	 * primitive, hook
 	 * 
 	 * @param otherCoordinate
 	 * @return
@@ -168,6 +290,11 @@ public abstract class AbstractCoordinate implements Coordinate {
 	protected abstract double doGetSphericDistance(Coordinate otherCoordinate);
 	
 	/**
+	 * @methodtype 
+	 * get method
+	 * 
+	 * @methodproperties
+	 * primitive, hook
 	 * 
 	 * @param otherCoordinate
 	 * @return
@@ -175,11 +302,57 @@ public abstract class AbstractCoordinate implements Coordinate {
 	protected abstract double doGetCartesianDistance(Coordinate otherCoordinate);
 	
 	/**
+	 * @methodtype 
+	 * get method
+	 * 
+	 * @methodproperties
+	 * primitive, hook
 	 * 
 	 * @param otherCoordinate
 	 * @return
 	 */
 	protected abstract boolean doIsEqual(Coordinate otherCoordinate);
+	
+	/**
+	 * @methodtype 
+	 * get method
+	 * 
+	 * @methodproperties
+	 * primitive, hook
+	 * 
+	 * @return
+	 */
+	protected abstract SphericCoordinate doAsSphericCoordinate();
+	
+	/**
+	 * @methodtype 
+	 * get method
+	 * 
+	 * @methodproperties
+	 * primitive, hook
+	 * 
+	 * @return
+	 */
+	protected abstract CartesianCoordinate doAsCartesianCoordinate();
+	
+	/**
+	 * Class invariant will be implemented by specific coordinate classes.
+	 * 
+	 * @methodtype assertionmethod
+	 * @methodproperties hookmethod
+	 */
+	protected abstract void assertImplementationClassInvariant();
+	
+	
+	/**
+	 * Class invariant for AbstractCoordinate class.
+	 * 
+	 * @methodtype assertionmethod
+	 * @methodproperties hookmethod
+	 */
+	private void assertClassInvariants() {
+		assertImplementationClassInvariant();
+	}
 			
 	/**
 	 * Checks if the specified Coordinate is not null.	 
@@ -189,9 +362,37 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * 
 	 * @param otherCoordinate
 	 */
-	private void assertIsCoordinateNull(Coordinate otherCoordinate) {
+	private void assertIsCoordinateArgumentNull(Coordinate otherCoordinate) {
 		if(otherCoordinate == null) {
             throw new IllegalArgumentException("Coordinate argument shouldn't be null!");
         }
 	}
+	
+	/**
+	 * Checks if result is null
+	 * 
+	 * @methodtype 
+	 * assertion method
+	 * 
+	 * @param coordinate
+	 */
+	private void assertIsCoordinateResultNull(Coordinate coordinate) {
+		//coordinate shouldn't be null
+		assert (coordinate != null);
+	}
+	
+	/**
+	 * Checks if distance is greater than zero
+	 * 
+	 * @methodtype 
+	 * assertion method
+	 * 
+	 * @param distance
+	 */
+	private void assertIsDistanceGreaterThanZero(double distance) {
+		//distance hast to be greater than zero
+		assert (distance >= 0);
+	}
+	
+
 }//end of class AbstractCoordinate

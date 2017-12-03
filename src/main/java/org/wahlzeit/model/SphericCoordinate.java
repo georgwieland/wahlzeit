@@ -57,11 +57,18 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * Constructs a SphericCoordinate object with the given arguments.
 	 * 
 	 * @methodtype constructor
+	 * 
+	 * @invariant will be checked after instantiation
+	 * 
 	 */
 	public SphericCoordinate(double radius, double longitude, double latitude) {
 		this.setRadius(radius);
 		this.setLongitude(longitude);
 		this.setLatitude(latitude);
+		
+		//Check class invariants after instantiation. 
+		//Not necessary for other constructors because they are just convenience constructors which call this one
+		assertImplementationClassInvariant();
 	}
 	
 	
@@ -84,6 +91,9 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype 
 	 * get method
 	 * 
+	 * @invariant since object state will not be changed and the
+	 * method is not that complex invariant check is not necessary
+	 * 
 	 * @return
 	 * Return radius value.
 	 */
@@ -98,12 +108,22 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype 
 	 * set method
 	 * 
+	 * @invariant {@link SphericCoordinate#assertImplementationClassInvariant}
+	 * 
+	 * @precondition (value != NaN) || (radius >= zero)
+	 *  
 	 * @param radius
 	 * Radius value which will be set
 	 */
 	public void setRadius(double radius) {
+		//check class invariant before changing objects state
+		assertImplementationClassInvariant();
+		
 		assertIsPositiveRadius(radius);
 		this.radius = radius;
+		
+		//check class invariant after changing objects state
+		assertImplementationClassInvariant();
 	}
 
 	/**
@@ -111,6 +131,9 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * 
 	 * @methodtype 
 	 * get method
+	 * 
+	 * @invariant since object state will not be changed and the
+	 * method is not that complex invariant check is not necessary
 	 * 
 	 * @return
 	 * Return longitude value.
@@ -125,12 +148,22 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype 
 	 * set method
 	 * 
+	 * @invariant {@link SphericCoordinate#assertClassInvariants}
+	 * 
+	 * @precondition (value != NaN) || (longitude >= -Math.PI) || (longitude <= Math.PI)
+	 *  
 	 * @param longitude
 	 * Longitude value which will be set
 	 */
 	public void setLongitude(double longitude) {
+		//check class invariant before changing objects state
+		assertImplementationClassInvariant();
+		
 		assertIsValidLongitude(longitude);
 		this.longitude = longitude;
+		
+		//check class invariant after changing objects state
+		assertImplementationClassInvariant();
 	}
 
 	/**
@@ -138,6 +171,9 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * 
 	 * @methodtype 
 	 * get method
+	 * 
+	 * @invariant since object state will not be changed and the
+	 * method is not that complex invariant check is not necessary
 	 * 
 	 * @return
 	 * Return latitude value
@@ -152,18 +188,35 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype 
 	 * set method
 	 * 
+	 * @invariant {@link SphericCoordinate#assertClassInvariants}
+	 * 
+	 * @precondition (value != NaN) || (latitude >= 0.0) || (latitude <= Math.PI)
+	 *   
 	 * @param latitude
 	 * Latitude value which will be set
 	 */
 	public void setLatitude(double latitude) {
+		//check class invariant before changing objects state
+		assertImplementationClassInvariant();
+		
 		assertIsValidLatitude(latitude);
 		this.latitude = latitude;
+		
+		//check class invariant after changing objects state
+		assertImplementationClassInvariant();
 	}
 
 	/**
 	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
 	 * 
 	 * @methodtype get method
+	 * 
+	 * @invariant will be checked by AbstractCoordinate
+	 * 
+	 * @precondition will be checked by AbstractCoordinate
+	 * 
+	 * @postcondition will be checked by AbstractCoordinate
+	 * 
 	 */
 	@Override
 	protected double doGetCartesianDistance(Coordinate otherCoordinate) {
@@ -174,6 +227,13 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @see org.wahlzeit.model.Coordinate#getSphericDistance(org.wahlzeit.model.Coordinate)
 	 * 
 	 * @methodtype get method
+	 * 
+	 * @invariant will be checked by AbstractCoordinate
+	 * 
+	 * @precondition will be checked by AbstractCoordinate
+	 * 
+	 * @postcondition will be checked by AbstractCoordinate
+	 * 
 	 */
 	@Override
 	protected double doGetSphericDistance(Coordinate otherCoordinate) {
@@ -192,9 +252,16 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @see org.wahlzeit.model.Coordinate#asCartestianDistance()
 	 * 
 	 * @methodtype conversion method
+	 * 
+	 * @invariant will be checked by AbstractCoordinate
+	 * 
+	 * @precondition will be checked by AbstractCoordinate
+	 * 
+	 * @postcondition will be checked by AbstractCoordinate
+	 * 
 	 */
 	@Override
-	public CartesianCoordinate asCartesianCoordinate() {
+	public CartesianCoordinate doAsCartesianCoordinate() {
 		double x = this.radius * Math.sin(this.longitude) * Math.cos(this.latitude);
 		double y = this.radius * Math.sin(this.longitude) * Math.sin(this.latitude);
 		double z = this.radius * Math.cos(this.longitude);
@@ -206,9 +273,16 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @see org.wahlzeit.model.Coordinate#asSphericDistance()
 	 * 
 	 * @methodtype conversion method
+	 * 
+	 * @invariant will be checked by AbstractCoordinate
+	 * 
+	 * @precondition will be checked by AbstractCoordinate
+	 * 
+	 * @postcondition will be checked by AbstractCoordinate
+	 * 
 	 */
 	@Override
-	public SphericCoordinate asSphericCoordinate() {
+	public SphericCoordinate doAsSphericCoordinate() {
 		return new SphericCoordinate(this);
 	}
 	
@@ -216,6 +290,13 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @see org.wahlzeit.model.Coordinate#isEqual(org.wahlzeit.model.Coordinate)
 	 * 
 	 * @methodtype boolean query method
+	 * 
+	 * @invariant will be checked by AbstractCoordinate
+	 * 
+	 * @precondition will be checked by AbstractCoordinate
+	 * 
+	 * @postcondition will be checked by AbstractCoordinate
+	 * 
 	 */
 	@Override
 	protected boolean doIsEqual(Coordinate otherCoordinate) {
@@ -227,6 +308,31 @@ public class SphericCoordinate extends AbstractCoordinate {
 				(DoubleUtil.compareDoubles(this.latitude, sphericCoordinate.getLatitude(), PRECISION)));
 	}
 
+	/**
+	 * It is recommended to override the hashcode method when overriding the equals method 
+	 * because equal objects may get different hash-values. This may lead to not properly 
+	 * working hash based collections.
+	 */
+	@Override
+	public int hashCode() {
+		//check class invariant before 
+		assertImplementationClassInvariant();
+		
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(latitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(longitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(radius);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		
+		//check class invariant after 
+		assertImplementationClassInvariant();
+		
+		return result;
+	}
 		
 	/**
 	 * Check if radius value is greater than zero.
@@ -273,23 +379,24 @@ public class SphericCoordinate extends AbstractCoordinate {
 		}
 	}
 	
-	
+		
 	/**
-	 * It is recommended to override the hashcode method when overriding the equals method 
-	 * because equal objects may get different hash-values. This may lead to not properly 
-	 * working hash based collections.
+	 * Checks if 
+	 * 		(radius >= zero) || !Double.isNaN(radius)
+	 * 		(longitude >= -Math.PI) || (longitude <= Math.PI) || !Double.isNaN(radius)
+	 * 		(latitude >= zero) || (latitude <= Math.PI) || !Double.isNaN(radius)
+	 * 
+	 * @methodtype assertion
 	 */
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(latitude);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(longitude);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(radius);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
+	protected void assertImplementationClassInvariant() {
+		//check radius
+		assert ((radius >= 0.0) || !Double.isNaN(radius));
+		
+		//check longitude
+		assert ((longitude >= -Math.PI) || (longitude <= Math.PI) || !Double.isNaN(radius));
+		
+		//check latitude
+		assert ((latitude >= 0.0) || (latitude <= Math.PI) || !Double.isNaN(radius));
 	}
 }//end of class SphericCoordinate
