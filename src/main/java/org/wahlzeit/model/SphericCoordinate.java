@@ -21,6 +21,8 @@
  */
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.DoubleUtil;
+
 /**
  * SphericCoordinate is represented by radius, longitude and latitude.
  *
@@ -220,9 +222,9 @@ public class SphericCoordinate extends AbstractCoordinate {
 		//get cartesian cartseian representation
 		SphericCoordinate sphericCoordinate = otherCoordinate.asSphericCoordinate();
 		
-		return ((compareDoubles(this.radius, sphericCoordinate.getRadius(), PRECISION)) && 
-				(compareDoubles(this.longitude, sphericCoordinate.getLongitude(), PRECISION)) && 
-				(compareDoubles(this.latitude, sphericCoordinate.getLatitude(), PRECISION)));
+		return ((DoubleUtil.compareDoubles(this.radius, sphericCoordinate.getRadius(), PRECISION)) && 
+				(DoubleUtil.compareDoubles(this.longitude, sphericCoordinate.getLongitude(), PRECISION)) && 
+				(DoubleUtil.compareDoubles(this.latitude, sphericCoordinate.getLatitude(), PRECISION)));
 	}
 
 		

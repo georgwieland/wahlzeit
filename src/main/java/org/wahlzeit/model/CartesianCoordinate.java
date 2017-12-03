@@ -21,6 +21,8 @@
  */
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.DoubleUtil;
+
 /**
  * CartesianCoordinate is represented by a x, y and cartesian coordinate.
  */
@@ -214,7 +216,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		double radius = Math.sqrt((this.x*this.x) + (this.y*this.y) + (this.z*this.z));
 		
 		//check for zero and NaN value
-		if (compareDoubles(radius, 0.0, PRECISION) || Double.isNaN(radius)) {
+		if (DoubleUtil.compareDoubles(radius, 0.0, PRECISION) || Double.isNaN(radius)) {
 			return new SphericCoordinate();
 		}
 
@@ -244,9 +246,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		//get cartesian cartseian representation
 		CartesianCoordinate cartesianCoordinate = otherCoordinate.asCartesianCoordinate();
 		
-		return ((compareDoubles(this.x, cartesianCoordinate.getX(), PRECISION)) && 
-				(compareDoubles(this.y, cartesianCoordinate.getY(), PRECISION)) && 
-				(compareDoubles(this.z, cartesianCoordinate.getZ(), PRECISION)));
+		return ((DoubleUtil.compareDoubles(this.x, cartesianCoordinate.getX(), PRECISION)) && 
+				(DoubleUtil.compareDoubles(this.y, cartesianCoordinate.getY(), PRECISION)) && 
+				(DoubleUtil.compareDoubles(this.z, cartesianCoordinate.getZ(), PRECISION)));
 	}
 
 

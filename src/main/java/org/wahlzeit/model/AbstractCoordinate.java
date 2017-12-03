@@ -180,31 +180,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @return
 	 */
 	protected abstract boolean doIsEqual(Coordinate otherCoordinate);
-	
-	
-	/**
-	 * Comparing two doubles taking rounding error into account.
-	 * 
-	 * @method type
-	 * bolean query method
-	 * 
-	 * @param firstDouble
-	 * First double value for comparison.
-	 * 
-	 * @param secondDouble
-	 * Second double value for comparison.
-	 * 
-	 * @return
-	 * True if equal otherwise false.
-	 */
-	protected boolean compareDoubles(double firstDouble, double secondDouble, double precision) {
-		if (Double.isNaN(firstDouble) || Double.isNaN(secondDouble)) {
-			return false;
-		}
-		//first substract and compare absolute value with PRECISION 
-		return Math.abs(firstDouble - secondDouble) < precision;
-	}
-	
+			
 	/**
 	 * Checks if the specified Coordinate is not null.	 
 	 * 

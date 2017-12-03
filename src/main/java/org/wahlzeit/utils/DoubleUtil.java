@@ -1,0 +1,53 @@
+/*
+ * Classname: AbstractCoordinate
+ * 
+ * Copyright (c) 2017 by Georg Wieland
+ *
+ * This file is part of the Wahlzeit photo rating application.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>.
+ */
+package org.wahlzeit.utils;
+
+/**
+ * 
+ * @author dpgwieland
+ *
+ */
+public class DoubleUtil {
+
+	/**
+	 * Comparing two doubles taking rounding error into account.
+	 * 
+	 * @method type
+	 * bolean query method
+	 * 
+	 * @param firstDouble
+	 * First double value for comparison.
+	 * 
+	 * @param secondDouble
+	 * Second double value for comparison.
+	 * 
+	 * @return
+	 * True if equal otherwise false.
+	 */
+	public static boolean compareDoubles(double firstDouble, double secondDouble, double precision) {
+		if (Double.isNaN(firstDouble) || Double.isNaN(secondDouble)) {
+			return false;
+		}
+		//first substract and compare absolute value with PRECISION 
+		return Math.abs(firstDouble - secondDouble) < precision;
+	}
+}
