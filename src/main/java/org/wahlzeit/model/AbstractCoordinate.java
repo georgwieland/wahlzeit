@@ -35,7 +35,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype 
 	 * get method
 	 * 
-	 * @invariant is specified by subclass
+	 * @invariant will call the specific class invariant
 	 * 
 	 * @precondition (arg != null)
 	 * 
@@ -72,7 +72,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype 
 	 * get method
 	 * 
-	 * @invariant is specified by subclass
+	 * @invariant will call the specific class invariant
 	 * 
 	 * @precondition (arg != null)
 	 * 
@@ -108,7 +108,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype 
 	 * get method
 	 * 
-	 * @invariant is specified by subclass
+	 * @invariant will call the specific class invariant
 	 * 
 	 * @precondition (arg != null)
 	 * 
@@ -145,7 +145,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype 
 	 * conversion method
 	 * 
-	 * @invariant is specified by subclass
+	 * @invariant will call the specific class invariant
 	 *  
 	 * @postcondition (coordinate != null)
 	 * 
@@ -175,7 +175,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype 
 	 * conversion method
 	 * 
-	 * @invariant is specified by subclass
+	 * @invariant will call the specific class invariant
 	 *  
 	 * @postcondition (coordinate != null)
 	 * 
@@ -204,7 +204,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype 
 	 * bolean query method
 	 * 
-	 * @invariant is specified by subclass
+	 * @invariant will call the specific class invariant
 	 *  
 	 * @param obj
 	 * 
@@ -246,7 +246,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype 
 	 * boolean query method
 	 * 
-	 * @invariant is specified by subclass
+	 * @invariant will call the specific class invariant
 	 * 
 	 * @param coordinate
 	 * Other coordinate object for comparisson.
