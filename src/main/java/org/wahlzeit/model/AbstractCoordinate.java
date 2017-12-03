@@ -49,7 +49,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	@Override
 	public double getDistance(Coordinate otherCoordinate) {
-		//check class invariant by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
 		
@@ -84,7 +84,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	@Override
 	public double getCartesianDistance(Coordinate otherCoordinate) {
-		//check class invariants by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
 		
@@ -122,7 +122,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	@Override
 	public double getSphericDistance(Coordinate otherCoordinate) {
-		//check class invariants by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
 		
@@ -154,7 +154,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
-		//check class invariant by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
 		
@@ -184,7 +184,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
-		//check class invariant by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
 		
@@ -213,7 +213,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		//check class invariant by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
 		
@@ -256,7 +256,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	@Override
 	public boolean isEqual(Coordinate otherCoordinate) {
-		//check class invariant by calling abstract assertClassInvariants method which will be implemented by the subclasses
+		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
 		
