@@ -119,6 +119,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		//check class invariant before changing objects state
 		assertImplementationClassInvariant();
 		
+		assertIsValidCoordinateValue(longitude);
 		assertIsPositiveRadius(radius);
 		this.radius = radius;
 		
@@ -159,6 +160,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		//check class invariant before changing objects state
 		assertImplementationClassInvariant();
 		
+		assertIsValidCoordinateValue(longitude);
 		assertIsValidLongitude(longitude);
 		this.longitude = longitude;
 		
@@ -199,6 +201,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		//check class invariant before changing objects state
 		assertImplementationClassInvariant();
 		
+		assertIsValidCoordinateValue(longitude);
 		assertIsValidLatitude(latitude);
 		this.latitude = latitude;
 		
@@ -379,6 +382,17 @@ public class SphericCoordinate extends AbstractCoordinate {
 		}
 	}
 	
+	/**
+	 * Check if value is not NaN
+	 * 
+	 * @param value
+	 * Value which will be checked
+	 */
+	private void assertIsValidCoordinateValue(double value) {
+		if (Double.isNaN(value)) {
+			throw new IllegalArgumentException("Value should not be NaN.");
+		}
+	}
 		
 	/**
 	 * Checks if 
