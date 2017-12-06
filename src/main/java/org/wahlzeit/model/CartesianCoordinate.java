@@ -275,7 +275,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	public CartesianCoordinate doAsCartesianCoordinate() {
+	protected CartesianCoordinate doAsCartesianCoordinate() {
 		return new CartesianCoordinate(this);
 	}
 	
@@ -293,7 +293,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	public SphericCoordinate doAsSphericCoordinate() {
+	protected SphericCoordinate doAsSphericCoordinate() {
 		//radius
 		double radius = Math.sqrt((this.x*this.x) + (this.y*this.y) + (this.z*this.z));
 		

@@ -264,7 +264,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	public CartesianCoordinate doAsCartesianCoordinate() {
+	protected CartesianCoordinate doAsCartesianCoordinate() {
 		double x = this.radius * Math.sin(this.longitude) * Math.cos(this.latitude);
 		double y = this.radius * Math.sin(this.longitude) * Math.sin(this.latitude);
 		double z = this.radius * Math.cos(this.longitude);
@@ -285,7 +285,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	public SphericCoordinate doAsSphericCoordinate() {
+	protected SphericCoordinate doAsSphericCoordinate() {
 		return new SphericCoordinate(this);
 	}
 	
