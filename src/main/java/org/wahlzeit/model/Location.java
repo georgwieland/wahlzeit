@@ -40,11 +40,12 @@ public class Location {
 	 * 
 	 * @param cartesianCoordinate
 	 * CartesianCoordinate object for initialization.
+	 * 
+	 * @precondition (arg != null)
 	 */
 	public Location(Coordinate otherCoordinate) {
-		if (otherCoordinate == null) {
-			throw new IllegalArgumentException("Argument for cartesianCoordinate shouldn't be null.");
-		}
+		assertIsCoordinateArgumentNull(otherCoordinate);
+		
 		this.coordinate = otherCoordinate;
 	}
 
@@ -69,11 +70,12 @@ public class Location {
 	 * 
 	 * @param cartesianCoordinate
 	 * CartesianCoordinate object for setting the coordinates.
+	 * 
+	 * @precondition (arg != null)
 	 */
 	public void setCoordinate(Coordinate otherCoordinate) {
-		if (otherCoordinate == null) {
-			throw new IllegalArgumentException("Argument for cartesianCoordinate shouldn't be null.");
-		}
+		assertIsCoordinateArgumentNull(otherCoordinate);
+		
 		this.coordinate = otherCoordinate;
 	}
 
@@ -118,4 +120,18 @@ public class Location {
 		result = prime * result + ((coordinate == null) ? 0 : coordinate.hashCode());
 		return result;
 	}	
+	
+	/**
+	 * Checks if the specified Coordinate is not null.	 
+	 * 
+	 * @methodtype
+	 * helper method
+	 * 
+	 * @param otherCoordinate
+	 */
+	private void assertIsCoordinateArgumentNull(Coordinate otherCoordinate) {
+		if(otherCoordinate == null) {
+            throw new IllegalArgumentException("Coordinate argument shouldn't be null!");
+        }
+	}
 } //end of class Location

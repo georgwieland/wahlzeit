@@ -37,7 +37,7 @@ public class CartesianCoordinateTest {
 	CartesianCoordinate parameterizedCoordinate;
 	
 	@Before
-	public void setupCoordinates() {
+	public void setupCoordinates() throws CoordinateException {
 		defaultCoordinate = new CartesianCoordinate();
 		parameterizedCoordinate = new CartesianCoordinate(1.0, 2.0, 3.0);
 	}
@@ -60,7 +60,7 @@ public class CartesianCoordinateTest {
 	}
 	
 	@Test
-	public void testCopyConstructor() {
+	public void testCopyConstructor() throws CoordinateException {
 		CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(parameterizedCoordinate);
 		assertEquals(parameterizedCoordinate, cartesianCoordinate);
 	}
@@ -70,7 +70,7 @@ public class CartesianCoordinateTest {
 	//							CartesianCoordinate.set-/get-
 	//*************************************************************************
 	@Test
-	public void testSetterAndGetter() {
+	public void testSetterAndGetter() throws CoordinateException {
 		defaultCoordinate.setX(3);
 		defaultCoordinate.setY(4);
 		defaultCoordinate.setZ(5);
@@ -83,42 +83,42 @@ public class CartesianCoordinateTest {
 	//*************************************************************************
 	//							CartesianCoordinate.getDistance
 	//*************************************************************************
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetDistanceNull() {
+	@Test(expected = CoordinateException.class)
+	public void testGetDistanceNull() throws CoordinateException {
 		//check null value
 		defaultCoordinate.getDistance(null);
 	}
 	
 	@Test
-	public void testGetDistanceItself() {
+	public void testGetDistanceItself() throws CoordinateException {
 		assertEquals(0, defaultCoordinate.getDistance(defaultCoordinate), 0.0);
 		assertEquals(0, parameterizedCoordinate.getDistance(parameterizedCoordinate), 0.0);
 	}
 	
 	@Test
-	public void testGetDistanceCalculation() {		
+	public void testGetDistanceCalculation() throws CoordinateException {		
 		assertEquals(3.741657, defaultCoordinate.getDistance(parameterizedCoordinate), 0.000001);	
 		assertEquals(3.741657, parameterizedCoordinate.getDistance(defaultCoordinate), 0.000001);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetCaresianDistanceNull() {	
+	@Test(expected = CoordinateException.class)
+	public void testGetCaresianDistanceNull() throws CoordinateException {	
 		defaultCoordinate.getCartesianDistance(null);
 	}
 	
 	@Test
-	public void testGetCaresianDistanceCalculation() {		
+	public void testGetCaresianDistanceCalculation() throws CoordinateException {		
 		assertEquals(3.741657, defaultCoordinate.getCartesianDistance(parameterizedCoordinate), 0.000001);	
 		assertEquals(3.741657, parameterizedCoordinate.getCartesianDistance(defaultCoordinate), 0.000001);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void testSphericDistanceNull() {	
+	@Test(expected = CoordinateException.class)
+	public void testSphericDistanceNull() throws CoordinateException {	
 		defaultCoordinate.getSphericDistance(null);
 	}
 	
 	@Test
-	public void testGetSphericDistanceCalculation() {	
+	public void testGetSphericDistanceCalculation() throws CoordinateException {	
 		CartesianCoordinate coordinateIncrXYZ = new CartesianCoordinate( 1, 0, 0);
 		assertEquals(1, defaultCoordinate.getSphericDistance(coordinateIncrXYZ), 0.000001);	
 	}
@@ -127,12 +127,12 @@ public class CartesianCoordinateTest {
 	//							CartesianCoordinate.asCoordinate methods
 	//*************************************************************************
 	@Test
-	public void testAsSphericCoordinate() {	
+	public void testAsSphericCoordinate() throws CoordinateException {	
 		assertEquals(defaultCoordinate, defaultCoordinate.asSphericCoordinate().asCartesianCoordinate());
 	}
 	
 	@Test
-	public void testAsCartesianCoordinate() {	
+	public void testAsCartesianCoordinate() throws CoordinateException {	
 		assertEquals(defaultCoordinate, defaultCoordinate.asCartesianCoordinate());
 	}
 	
@@ -140,22 +140,22 @@ public class CartesianCoordinateTest {
 	//							CartesianCoordinate.isEqual
 	//*************************************************************************
 	@Test
-	public void testIsEqualNull() {
+	public void testIsEqualNull() throws CoordinateException {
 		assertFalse(defaultCoordinate.isEqual(null));
 	}
 	
 	@Test
-	public void testIsEqualSameObject() {
+	public void testIsEqualSameObject() throws CoordinateException {
 		assertTrue(defaultCoordinate.isEqual(defaultCoordinate));
 	}
 	
 	@Test
-	public void testIsEqualNotEqual() {
+	public void testIsEqualNotEqual() throws CoordinateException {
 		assertFalse(defaultCoordinate.isEqual(parameterizedCoordinate));
 	}
 	
 	@Test
-	public void testIsEqualSameDataDifferentObjects() {
+	public void testIsEqualSameDataDifferentObjects() throws CoordinateException {
 		assertTrue(parameterizedCoordinate.isEqual(new CartesianCoordinate(1.0, 2.0, 3.0)));
 		parameterizedCoordinate.setX(1.00025);
 		parameterizedCoordinate.setY(2.00025);
@@ -186,7 +186,7 @@ public class CartesianCoordinateTest {
 	}
 	
 	@Test
-	public void testEqualNotEqual() {
+	public void testEqualNotEqual() throws CoordinateException {
 		assertFalse(defaultCoordinate.equals(parameterizedCoordinate));
 		assertFalse(parameterizedCoordinate.equals(new CartesianCoordinate(2.0, 2.0, 3.0)));
 		assertFalse(parameterizedCoordinate.equals(new CartesianCoordinate(1.0, 1.0, 3.0)));
@@ -194,7 +194,7 @@ public class CartesianCoordinateTest {
 	}
 	
 	@Test
-	public void testEqualSameDataDifferentObjects() {
+	public void testEqualSameDataDifferentObjects() throws CoordinateException {
 		assertTrue(parameterizedCoordinate.equals(new CartesianCoordinate(1.0, 2.0, 3.0)));
 	}
 

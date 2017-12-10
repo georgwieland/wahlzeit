@@ -57,9 +57,13 @@ public class FishPhoto extends Photo {
 	 * 
 	 * @methodtype constructor
 	 * @param fish
+	 * @precondition (arg != null)
 	 */
 	public FishPhoto(Fish fish) {
 		super();
+		
+		assertIsFishArgumentNull(fish);
+		
 		this.fish = fish;
 	}
 	
@@ -71,6 +75,9 @@ public class FishPhoto extends Photo {
 	 */
 	public FishPhoto(PhotoId myId, Fish fish) {
 		super(myId);
+		
+		assertIsFishArgumentNull(fish);
+		
 		this.fish = fish;
 	}
 
@@ -91,13 +98,25 @@ public class FishPhoto extends Photo {
 	 * 
 	 * @param fish
 	 * fish object.
+	 * 
+	 * @precondition (arg != null)
 	 */
 	public void setFish(Fish fish) {
-		if (fish == null) {
-			throw new IllegalArgumentException("Argument for fish shouldn't be null.");
-		}
+		assertIsFishArgumentNull(fish);
 		this.fish = fish;
 	}
 	
-
+	/**
+	 * Checks if the specified Fish is not null.	 
+	 * 
+	 * @methodtype
+	 * helper method
+	 * 
+	 * @param otherCoordinate
+	 */
+	private void assertIsFishArgumentNull(Fish otherFish) {
+		if(otherFish == null) {
+            throw new IllegalArgumentException("Fish argument shouldn't be null!");
+        }
+	}
 }//end of class FishPhoto

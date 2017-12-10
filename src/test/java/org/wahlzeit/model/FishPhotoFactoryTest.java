@@ -96,6 +96,12 @@ public class FishPhotoFactoryTest {
 		assertEquals(false, fish.isPredator());
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateWithIdAndFishObjectNull() {
+		PhotoId id = new PhotoId(999);
+		FishPhoto photo = factory.createPhoto(id, null);
+	}
+	
 	@Test(expected = IllegalStateException.class)
 	public void testSetInstanceTwice() {
 		FishPhotoFactory.setInstance(factory);

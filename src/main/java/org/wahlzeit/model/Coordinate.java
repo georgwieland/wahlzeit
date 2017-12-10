@@ -39,8 +39,9 @@ public interface Coordinate {
 	 * 
 	 * @return
 	 * True if equal otherwise false.
+	 * @throws CoordinateException 
 	 */
-	public boolean isEqual(Coordinate otherCoordinate);
+	public boolean isEqual(Coordinate otherCoordinate) throws CoordinateException;
 	
 	/**
 	 * Calculates the distance between two coordinate objects.
@@ -53,8 +54,9 @@ public interface Coordinate {
 	 * 
 	 * @return
 	 * Value for the distance.
+	 * @throws CoordinateException 
 	 */
-	public double getDistance(Coordinate otherCoordinate);
+	public double getDistance(Coordinate otherCoordinate) throws CoordinateException;
 	
 	/**
 	 * Calculates the cartesian distance between two Coordinate objects.
@@ -65,8 +67,9 @@ public interface Coordinate {
 	 * @param coordinate
 	 * @return
 	 * Value for the distance.
+	 * @throws CoordinateException 
 	 */
-	public double getCartesianDistance(Coordinate otherCoordinate);
+	public double getCartesianDistance(Coordinate otherCoordinate) throws CoordinateException;
 	
 	/**
 	 * Creates a coordinate object in cartesian representation.
@@ -76,8 +79,9 @@ public interface Coordinate {
 	 * 
 	 * @return
 	 * New CartesianCoordinate object.
+	 * @throws CoordinateException 
 	 */
-	public CartesianCoordinate asCartesianCoordinate();
+	public CartesianCoordinate asCartesianCoordinate() throws CoordinateException;
 
 	/**
 	 * Calculates the spheric distance between two Coordinate objects.
@@ -90,8 +94,9 @@ public interface Coordinate {
 	 * 
 	 * @return
 	 * Value for the distance.
+	 * @throws CoordinateException 
 	 */
-	public double getSphericDistance(Coordinate otherCoordinate);
+	public double getSphericDistance(Coordinate otherCoordinate) throws CoordinateException;
 	
 	/**
 	 * Creates a coordinate object in spheric representation.
@@ -101,6 +106,7 @@ public interface Coordinate {
 	 * 
 	 * @return
 	 * New SphericCoordinate object.
+	 * @throws CoordinateException 
 	 */
-	public SphericCoordinate asSphericCoordinate();
+	public SphericCoordinate asSphericCoordinate() throws CoordinateException;
 }//end of interface Coordinate

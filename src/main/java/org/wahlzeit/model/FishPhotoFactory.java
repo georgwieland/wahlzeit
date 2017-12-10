@@ -115,8 +115,11 @@ public class FishPhotoFactory extends PhotoFactory {
 	 * @param fish
 	 * @return
 	 * Created FishPhoto object.
+	 * 
+	 * @precondition (fish != null)
 	 */
 	public FishPhoto createPhoto(Fish fish) {
+		assertIsFishArgumentNull(fish);
 		return new FishPhoto(fish);
 	}
 	
@@ -127,8 +130,26 @@ public class FishPhotoFactory extends PhotoFactory {
 	 * @param fish
 	 * @return
 	 * Created FishPhoto object.
+	 * 
+	 * @precondition (fish != null)
 	 */
 	public FishPhoto createPhoto(PhotoId id, Fish fish) {
+		assertIsFishArgumentNull(fish);
 		return new FishPhoto(id, fish);
 	}
+	
+	/**
+	 * Checks if the specified Fish is not null.	 
+	 * 
+	 * @methodtype
+	 * helper method
+	 * 
+	 * @param otherCoordinate
+	 */
+	private void assertIsFishArgumentNull(Fish otherFish) {
+		if(otherFish == null) {
+            throw new IllegalArgumentException("Fish argument shouldn't be null!");
+        }
+	}
+	
 }//end of FishPhotoFactory

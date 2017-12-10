@@ -38,7 +38,7 @@ public class LocationTest {
 	Location parameterizedLocation;
 	
 	@Before
-	public void setupLocation() {
+	public void setupLocation() throws CoordinateException {
 		defaultLocation = new Location();
 		parameterizedLocation = new Location(new CartesianCoordinate(1.0, 2.0, 3.0));
 	}
@@ -47,7 +47,7 @@ public class LocationTest {
 	//		Location.constructors
 	//*************************************************************************
 	@Test
-	public void testParameterizedConstructor() {
+	public void testParameterizedConstructor() throws CoordinateException {
 		assertEquals(new CartesianCoordinate(1.0, 2.0, 3.0), parameterizedLocation.getCoordinate());
 	}
 	
@@ -60,7 +60,7 @@ public class LocationTest {
 	//		Location.set-/get-
 	//*************************************************************************
 	@Test
-	public void testSetAndGet() {
+	public void testSetAndGet() throws CoordinateException {
 		defaultLocation.setCoordinate(new CartesianCoordinate(2.0, 2.0, 2.0));
 		assertEquals(new CartesianCoordinate(2.0, 2.0, 2.0), defaultLocation.getCoordinate());
 	}
@@ -90,7 +90,7 @@ public class LocationTest {
 	}
 	
 	@Test
-	public void testEqualNotEqual() {
+	public void testEqualNotEqual() throws CoordinateException {
 		defaultLocation.setCoordinate(new CartesianCoordinate());
 		assertFalse(defaultLocation.equals(parameterizedLocation));
 	}

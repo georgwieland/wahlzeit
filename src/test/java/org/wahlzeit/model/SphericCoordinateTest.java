@@ -36,7 +36,7 @@ public class SphericCoordinateTest {
 	SphericCoordinate parameterizedCoordinate;
 
 	@Before
-	public void setupCoordinates() {
+	public void setupCoordinates() throws CoordinateException {
 		defaultCoordinate = new SphericCoordinate();
 		parameterizedCoordinate = new SphericCoordinate(1.0, Math.PI/2, Math.PI);
 	}
@@ -59,7 +59,7 @@ public class SphericCoordinateTest {
 	}
 	
 	@Test
-	public void testCopyConstructor() {
+	public void testCopyConstructor() throws CoordinateException {
 		SphericCoordinate sphericCoordinate = new SphericCoordinate(parameterizedCoordinate);
 		assertEquals(parameterizedCoordinate, sphericCoordinate);
 	}
@@ -69,7 +69,7 @@ public class SphericCoordinateTest {
 	//				SphericCoordinate.set-/get-
 	//*************************************************************************
 	@Test
-	public void testSetterAndGetter() {
+	public void testSetterAndGetter() throws CoordinateException {
 		defaultCoordinate.setRadius(3);
 		defaultCoordinate.setLongitude(Math.PI/4);
 		defaultCoordinate.setLatitude(Math.PI/2);
@@ -81,43 +81,43 @@ public class SphericCoordinateTest {
 	//*************************************************************************
 	//				SphericCoordinate.getDistance
 	//*************************************************************************
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetDistanceNull() {
+	@Test(expected = CoordinateException.class)
+	public void testGetDistanceNull() throws CoordinateException {
 		//check null value
 		defaultCoordinate.getDistance(null);
 	}
 	
 	@Test
-	public void testGetDistanceItself() {
+	public void testGetDistanceItself() throws CoordinateException {
 		assertEquals(0, defaultCoordinate.getDistance(defaultCoordinate), 0.0);
 		assertEquals(0, parameterizedCoordinate.getDistance(parameterizedCoordinate), 0.000001);
 	}
 	
 	@Test
-	public void testGetDistanceCalculation() {		
+	public void testGetDistanceCalculation() throws CoordinateException {		
 		SphericCoordinate sphericCoordinate = new SphericCoordinate(1.0, Math.PI/4, Math.PI);
 		assertEquals(1, defaultCoordinate.getDistance(sphericCoordinate), 0.000001);
 		assertEquals(0.76536686, parameterizedCoordinate.getDistance(sphericCoordinate), 0.000001);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetCaresianDistanceNull() {	
+	@Test(expected = CoordinateException.class)
+	public void testGetCaresianDistanceNull() throws CoordinateException {	
 		defaultCoordinate.getCartesianDistance(null);
 	}
 	
 	@Test
-	public void testGetCaresianDistanceCalculation() {	
+	public void testGetCaresianDistanceCalculation() throws CoordinateException {	
 		SphericCoordinate sphericCoordinate = new SphericCoordinate( 1, 0, 0);
 		assertEquals(1, defaultCoordinate.getCartesianDistance(sphericCoordinate), 0.000001);	
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void testSphericDistanceNull() {	
+	@Test(expected = CoordinateException.class)
+	public void testSphericDistanceNull() throws CoordinateException {	
 		defaultCoordinate.getSphericDistance(null);
 	}
 	
 	@Test
-	public void testGetSphericDistanceCalculation() {	
+	public void testGetSphericDistanceCalculation() throws CoordinateException {	
 		CartesianCoordinate cartesianCoordinate = new CartesianCoordinate( 1, 0, 0);
 		assertEquals(1, defaultCoordinate.getSphericDistance(cartesianCoordinate), 0.0);	
 	}
@@ -126,34 +126,34 @@ public class SphericCoordinateTest {
 	//				SphericCoordinate.asCoordinate methods
 	//*************************************************************************
 	@Test
-	public void testAsCartesianCoordinate() {	
+	public void testAsCartesianCoordinate() throws CoordinateException {	
 		assertEquals(defaultCoordinate, defaultCoordinate.asCartesianCoordinate().asSphericCoordinate());
 	}
 	
 	@Test
-	public void testAsSphericCoordinate() {	
+	public void testAsSphericCoordinate() throws CoordinateException {	
 		assertEquals(defaultCoordinate, defaultCoordinate.asSphericCoordinate());
 	}
 	//*************************************************************************
 	//				SphericCoordinate.isEqual
 	//*************************************************************************
 	@Test
-	public void testIsEqualNull() {
+	public void testIsEqualNull() throws CoordinateException {
 		assertFalse(defaultCoordinate.isEqual(null));
 	}
 	
 	@Test
-	public void testIsEqualSameObject() {
+	public void testIsEqualSameObject() throws CoordinateException {
 		assertTrue(defaultCoordinate.isEqual(defaultCoordinate));
 	}
 	
 	@Test
-	public void testIsEqualNotEqual() {
+	public void testIsEqualNotEqual() throws CoordinateException {
 		assertFalse(defaultCoordinate.isEqual(parameterizedCoordinate));
 	}
 	
 	@Test
-	public void testIsEqualSameDataDifferentObjects() {
+	public void testIsEqualSameDataDifferentObjects() throws CoordinateException {
 		assertTrue(parameterizedCoordinate.isEqual(new SphericCoordinate(1.0, Math.PI/2, Math.PI)));
 		parameterizedCoordinate.setRadius(1.0 + 0.00025);
 		parameterizedCoordinate.setLongitude((Math.PI/2) + 0.00025);
@@ -184,7 +184,7 @@ public class SphericCoordinateTest {
 	}
 	
 	@Test
-	public void testEqualNotEqual() {
+	public void testEqualNotEqual() throws CoordinateException {
 		assertFalse(defaultCoordinate.equals(parameterizedCoordinate));
 		assertFalse(parameterizedCoordinate.equals(new SphericCoordinate(2.0, Math.PI/2, Math.PI)));
 		assertFalse(parameterizedCoordinate.equals(new SphericCoordinate(1.0, Math.PI, Math.PI)));
@@ -192,26 +192,26 @@ public class SphericCoordinateTest {
 	}
 	
 	@Test
-	public void testEqualSameDataDifferentObjects() {
+	public void testEqualSameDataDifferentObjects() throws CoordinateException {
 		assertTrue(parameterizedCoordinate.equals(new SphericCoordinate(1.0, Math.PI/2, Math.PI)));
 	}
 	
 	//*************************************************************************
 	//				SphericCoordinate.equals
 	//*************************************************************************
-	@Test(expected = IllegalArgumentException.class)
-	public void testAssertPositiveRadius() {
+	@Test(expected = CoordinateException.class)
+	public void testAssertPositiveRadius() throws CoordinateException {
 		defaultCoordinate.setRadius(-0.01);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void testAssertIsValidLongitude() {
+	@Test(expected = CoordinateException.class)
+	public void testAssertIsValidLongitude() throws CoordinateException {
 		defaultCoordinate.setLongitude(-4.0);
 		defaultCoordinate.setLongitude(4.0);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void testAssertIsValidLatitude() {
+	@Test(expected = CoordinateException.class)
+	public void testAssertIsValidLatitude() throws CoordinateException {
 		defaultCoordinate.setLatitude(-0.01);
 		defaultCoordinate.setLatitude(4.0);
 	}

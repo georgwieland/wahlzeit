@@ -48,7 +48,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype constructor
 	 * @methodproperties convenience
 	 */
-	public SphericCoordinate() {
+	public SphericCoordinate() throws CoordinateException{
 		this(0.0, 0.0, 0.0);
 	}
 
@@ -61,11 +61,11 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @invariant will be checked after instantiation
 	 * 
 	 */
-	public SphericCoordinate(double radius, double longitude, double latitude) {
+	public SphericCoordinate(double radius, double longitude, double latitude) throws CoordinateException {		
 		this.setRadius(radius);
 		this.setLongitude(longitude);
 		this.setLatitude(latitude);
-		
+			
 		//Check class invariants after instantiation. 
 		//Not necessary for other constructors because they are just convenience constructors which call this one
 		assertImplementationClassInvariant();
@@ -80,7 +80,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param otherCoordinate
 	 * SphericCoordinate object to copy.
 	 */
-	public SphericCoordinate(SphericCoordinate otherCoordinate) {
+	public SphericCoordinate(SphericCoordinate otherCoordinate) throws CoordinateException{
 		this(otherCoordinate.getRadius(), otherCoordinate.getLongitude(), otherCoordinate.getLatitude());
 	}
 	
@@ -115,12 +115,16 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param radius
 	 * Radius value which will be set
 	 */
-	public void setRadius(double radius) {
+	public void setRadius(double radius) throws CoordinateException {
 		//check class invariant before changing objects state
 		assertImplementationClassInvariant();
-		
-		assertIsValidCoordinateValue(longitude);
-		assertIsPositiveRadius(radius);
+		try {
+			assertIsValidCoordinateValue(longitude);
+			assertIsPositiveRadius(radius);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
+	
 		this.radius = radius;
 		
 		//check class invariant after changing objects state
@@ -156,12 +160,17 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param longitude
 	 * Longitude value which will be set
 	 */
-	public void setLongitude(double longitude) {
+	public void setLongitude(double longitude) throws CoordinateException {
 		//check class invariant before changing objects state
 		assertImplementationClassInvariant();
 		
-		assertIsValidCoordinateValue(longitude);
-		assertIsValidLongitude(longitude);
+		try {
+			assertIsValidCoordinateValue(longitude);
+			assertIsValidLongitude(longitude);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
+		
 		this.longitude = longitude;
 		
 		//check class invariant after changing objects state
@@ -197,12 +206,17 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param latitude
 	 * Latitude value which will be set
 	 */
-	public void setLatitude(double latitude) {
+	public void setLatitude(double latitude) throws CoordinateException {
 		//check class invariant before changing objects state
 		assertImplementationClassInvariant();
 		
-		assertIsValidCoordinateValue(longitude);
-		assertIsValidLatitude(latitude);
+		try {
+			assertIsValidCoordinateValue(latitude);
+			assertIsValidLatitude(latitude);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
+		
 		this.latitude = latitude;
 		
 		//check class invariant after changing objects state
@@ -210,6 +224,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	}
 
 	/**
+	 * @throws CoordinateException 
 	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
 	 * 
 	 * @methodtype get method
@@ -222,7 +237,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	protected double doGetCartesianDistance(Coordinate otherCoordinate) {
+	protected double doGetCartesianDistance(Coordinate otherCoordinate) throws CoordinateException {
 		return this.asCartesianCoordinate().getDistance(otherCoordinate);
 	}
 	
@@ -239,7 +254,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	protected double doGetSphericDistance(Coordinate otherCoordinate) {
+	protected double doGetSphericDistance(Coordinate otherCoordinate) throws CoordinateException {
 		
 		SphericCoordinate sphericCoordinate = otherCoordinate.asSphericCoordinate();
 		//using getDistance of class CartesianCoordinate
@@ -252,6 +267,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	}
 
 	/**
+	 * @throws CoordinateException 
 	 * @see org.wahlzeit.model.Coordinate#asCartestianDistance()
 	 * 
 	 * @methodtype conversion method
@@ -264,7 +280,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	protected CartesianCoordinate doAsCartesianCoordinate() {
+	protected CartesianCoordinate doAsCartesianCoordinate() throws CoordinateException {
 		double x = this.radius * Math.sin(this.longitude) * Math.cos(this.latitude);
 		double y = this.radius * Math.sin(this.longitude) * Math.sin(this.latitude);
 		double z = this.radius * Math.cos(this.longitude);
@@ -285,7 +301,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	protected SphericCoordinate doAsSphericCoordinate() {
+	protected SphericCoordinate doAsSphericCoordinate() throws CoordinateException {
 		return new SphericCoordinate(this);
 	}
 	
@@ -302,7 +318,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	protected boolean doIsEqual(Coordinate otherCoordinate) {
+	protected boolean doIsEqual(Coordinate otherCoordinate) throws CoordinateException {
 		//get cartesian cartseian representation
 		SphericCoordinate sphericCoordinate = otherCoordinate.asSphericCoordinate();
 		

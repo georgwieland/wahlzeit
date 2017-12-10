@@ -43,11 +43,12 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	
 	/**
 	 * Constructs a CartesianCoordinate.
+	 * @throws CoordinateException 
 	 * 
 	 * @methodtype constructor
 	 * @methodproperties convenience
 	 */
-	public CartesianCoordinate() {
+	public CartesianCoordinate() throws CoordinateException {
 		this(0.0, 0.0, 0.0);
 	}
 	
@@ -68,8 +69,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 * @param z
 	 * z coordinate for initialization.
+	 * @throws CoordinateException 
 	 */
-	public CartesianCoordinate(double x, double y, double z) {
+	public CartesianCoordinate(double x, double y, double z) throws CoordinateException {
 		this.setX(x);
 		this.setY(y);
 		this.setZ(z);
@@ -86,8 +88,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @methodproperties convenience
 	 * @param otherCoordinate
 	 * CartesianCoordinate object to copy.
+	 * @throws CoordinateException 
 	 */
-	public CartesianCoordinate(CartesianCoordinate otherCoordinate) {
+	public CartesianCoordinate(CartesianCoordinate otherCoordinate) throws CoordinateException {
 		this(otherCoordinate.getX(), otherCoordinate.getY(), otherCoordinate.getZ());
 	}
 	
@@ -119,13 +122,18 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 *  
 	 * @param x
 	 * x coordinate
+	 * @throws CoordinateException 
 	 */
-	public void setX(double x) {
+	public void setX(double x) throws CoordinateException {
 		//check class invariant before changing objects state
 		assertImplementationClassInvariant();
 		
-		assertIsValidCoordinateValue(x);
-		
+		try {
+			assertIsValidCoordinateValue(x);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
+			
 		this.x = x;
 		
 		//check class invariant after changing objects state
@@ -160,13 +168,18 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 * @param y
 	 * y coordinate
+	 * @throws CoordinateException 
 	 */
-	public void setY(double y) {
+	public void setY(double y) throws CoordinateException {
 		//check class invariant before changing objects state
 		assertImplementationClassInvariant();
 		
-		assertIsValidCoordinateValue(y);
-		
+		try {
+			assertIsValidCoordinateValue(y);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
+			
 		this.y = y;
 		
 		//check class invariant after changing objects state
@@ -201,12 +214,17 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 * @param z
 	 * z coordinate
+	 * @throws CoordinateException 
 	 */
-	public void setZ(double z) {
+	public void setZ(double z) throws CoordinateException {
 		//check class invariant before changing objects state
 		assertImplementationClassInvariant();
 		
-		assertIsValidCoordinateValue(z);
+		try {
+			assertIsValidCoordinateValue(z);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
 		
 		this.z = z;
 		
@@ -216,6 +234,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	
 
 	/**
+	 * @throws CoordinateException 
 	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
 	 * 
 	 * @methodtype get method
@@ -228,7 +247,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	protected double doGetCartesianDistance(Coordinate otherCoordinate) {		
+	protected double doGetCartesianDistance(Coordinate otherCoordinate) throws CoordinateException {		
 		//get cartesian cartseian representation
 		CartesianCoordinate cartesianCoordinate = otherCoordinate.asCartesianCoordinate();
 		
@@ -245,6 +264,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	
 	/**
 	 * 
+	 * @throws CoordinateException 
 	 * @see org.wahlzeit.model.Coordinate#getSphericDistance(org.wahlzeit.model.Coordinate)
 	 * 
 	 * @methodtype get method
@@ -257,12 +277,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	protected double doGetSphericDistance(Coordinate otherCoordinate) {
+	protected double doGetSphericDistance(Coordinate otherCoordinate) throws CoordinateException {
 		return this.asSphericCoordinate().getDistance(otherCoordinate);
 	}
 	
 	/**
 	 *
+	 * @throws CoordinateException 
 	 * @see org.wahlzeit.model.Coordinate#asCartestianCoordinate()
 	 * 
 	 * @methodtype conversion method
@@ -275,7 +296,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	protected CartesianCoordinate doAsCartesianCoordinate() {
+	protected CartesianCoordinate doAsCartesianCoordinate() throws CoordinateException {
 		return new CartesianCoordinate(this);
 	}
 	
@@ -293,7 +314,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	@Override
-	protected SphericCoordinate doAsSphericCoordinate() {
+	protected SphericCoordinate doAsSphericCoordinate() throws CoordinateException{
 		//radius
 		double radius = Math.sqrt((this.x*this.x) + (this.y*this.y) + (this.z*this.z));
 		
@@ -328,9 +349,10 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 * @return
 	 * True if equal otherwise false.
+	 * @throws CoordinateException 
 	 */
 	@Override
-	protected boolean doIsEqual(Coordinate otherCoordinate) {
+	protected boolean doIsEqual(Coordinate otherCoordinate) throws CoordinateException {
 		//get cartesian representation
 		CartesianCoordinate cartesianCoordinate = otherCoordinate.asCartesianCoordinate();
 		

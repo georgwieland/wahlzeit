@@ -74,6 +74,12 @@ public class FishPhotoTest {
 		assertNotNull(photo4);
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public void testConstructorNull() {
+		PhotoId id = new PhotoId(998);
+		FishPhoto photo = new FishPhoto(id, null);
+	}
+	
 	//*************************************************************************
 	//		FishPhoto.set-/get-methods
 	//*************************************************************************
@@ -93,6 +99,11 @@ public class FishPhotoTest {
 	public void testSetter() {
 		photo1.setFish(fish);
 		assertNotNull(photo1.getFish());
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetterNull() {
+		photo1.setFish(null);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

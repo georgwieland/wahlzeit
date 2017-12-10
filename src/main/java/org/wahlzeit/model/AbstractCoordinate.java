@@ -46,20 +46,29 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * 
 	 * @return
 	 * Value for the distance.
+	 * @throws CoordinateException 
 	 */
 	@Override
-	public double getDistance(Coordinate otherCoordinate) {
+	public double getDistance(Coordinate otherCoordinate) throws CoordinateException {
 		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
 		
 		//precondition argument not null
-		assertIsCoordinateArgumentNull(otherCoordinate);
+		try {
+			assertIsCoordinateArgumentNull(otherCoordinate);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
 		
 		double tempDistance = doGetCartesianDistance(otherCoordinate);
 		
 		//postcondition distance greater than zero
-		assertIsDistanceGreaterThanZero(tempDistance);
+		try {
+			assertIsDistanceGreaterThanZero(tempDistance);
+		} catch (IllegalCoordinateResultException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
 		
 		//check class invariant again
 		assertClassInvariants();
@@ -81,20 +90,31 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @param coordinate
 	 * @return
 	 * Value for the distance.
+	 * @throws CoordinateException 
 	 */
 	@Override
-	public double getCartesianDistance(Coordinate otherCoordinate) {
+	public double getCartesianDistance(Coordinate otherCoordinate) throws CoordinateException {
 		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
 		
 		//precondition argument not null
-		assertIsCoordinateArgumentNull(otherCoordinate);
+		try {
+			assertIsCoordinateArgumentNull(otherCoordinate);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
+		
 		
 		double tempDistance = doGetCartesianDistance(otherCoordinate);
 		
 		//postcondition distance greater than zero
-		assertIsDistanceGreaterThanZero(tempDistance);
+		try {
+			assertIsDistanceGreaterThanZero(tempDistance);
+		} catch (IllegalCoordinateResultException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
+		
 		
 		//check class invariant again
 		assertClassInvariants();
@@ -119,20 +139,29 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * 
 	 * @return
 	 * Value for the distance.
+	 * @throws CoordinateException 
 	 */
 	@Override
-	public double getSphericDistance(Coordinate otherCoordinate) {
+	public double getSphericDistance(Coordinate otherCoordinate) throws CoordinateException {
 		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
 		
 		//precondition argument not null
-		assertIsCoordinateArgumentNull(otherCoordinate);
+		try {
+			assertIsCoordinateArgumentNull(otherCoordinate);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
 		
 		double tempDistance = doGetSphericDistance(otherCoordinate);
 		
 		//postcondition distance greater than zero
-		assertIsDistanceGreaterThanZero(tempDistance);
+		try {
+			assertIsDistanceGreaterThanZero(tempDistance);
+		} catch (IllegalCoordinateResultException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
 		
 		//check class invariant again
 		assertClassInvariants();
@@ -151,17 +180,22 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * 
 	 * @return
 	 * New CartesianCoordinate object.
+	 * @throws CoordinateException 
 	 */
 	@Override
-	public CartesianCoordinate asCartesianCoordinate() {
+	public CartesianCoordinate asCartesianCoordinate() throws CoordinateException {
 		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
 		
 		CartesianCoordinate cartesianCoordinate = doAsCartesianCoordinate();
 		
-		//postcondition returned coordinate object not null
-		assertIsCoordinateResultNull(cartesianCoordinate);
+		//postcondition returned coordinate object not null		
+		try {
+			assertIsCoordinateResultNull(cartesianCoordinate);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
 		
 		//check class invariant again
 		assertClassInvariants();
@@ -181,9 +215,10 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * 
 	 * @return
 	 * New SphericCoordinate object.
+	 * @throws CoordinateException 
 	 */
 	@Override
-	public SphericCoordinate asSphericCoordinate() {
+	public SphericCoordinate asSphericCoordinate() throws CoordinateException {
 		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
@@ -191,7 +226,11 @@ public abstract class AbstractCoordinate implements Coordinate {
 		SphericCoordinate sphericCoordinate = doAsSphericCoordinate();
 		
 		//postcondition returned coordinate object not null
-		assertIsCoordinateResultNull(sphericCoordinate);
+		try {
+			assertIsCoordinateResultNull(sphericCoordinate);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex.getMessage());
+		}
 		
 		//check class invariant again
 		assertClassInvariants();
@@ -233,7 +272,13 @@ public abstract class AbstractCoordinate implements Coordinate {
 		}
 		
 		//comparing data by using isEqual-method
-		boolean result = this.isEqual((Coordinate) obj);
+		boolean result = false;
+		try {
+			result = this.isEqual((Coordinate) obj);
+		} catch (CoordinateException ex) {
+			ex.printStackTrace();
+		}
+		
 		
 		//check class invariant again
 		assertClassInvariants();
@@ -253,9 +298,10 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * 
 	 * @return
 	 * True if equal otherwise false.
+	 * @throws CoordinateException 
 	 */
 	@Override
-	public boolean isEqual(Coordinate otherCoordinate) {
+	public boolean isEqual(Coordinate otherCoordinate) throws CoordinateException{
 		//check class invariant by calling assertClassInvariants method which calls the assertImplementationClassInvariant of a specific coordinate class
 		//therefore a check will only be done in the superclass AbstractCoordinate
 		assertClassInvariants();
@@ -286,8 +332,9 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * 
 	 * @param otherCoordinate
 	 * @return
+	 * @throws CoordinateException 
 	 */
-	protected abstract double doGetSphericDistance(Coordinate otherCoordinate);
+	protected abstract double doGetSphericDistance(Coordinate otherCoordinate) throws CoordinateException;
 	
 	/**
 	 * @methodtype 
@@ -298,8 +345,9 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * 
 	 * @param otherCoordinate
 	 * @return
+	 * @throws CoordinateException 
 	 */
-	protected abstract double doGetCartesianDistance(Coordinate otherCoordinate);
+	protected abstract double doGetCartesianDistance(Coordinate otherCoordinate) throws CoordinateException;
 	
 	/**
 	 * @methodtype 
@@ -310,8 +358,9 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * 
 	 * @param otherCoordinate
 	 * @return
+	 * @throws CoordinateException 
 	 */
-	protected abstract boolean doIsEqual(Coordinate otherCoordinate);
+	protected abstract boolean doIsEqual(Coordinate otherCoordinate) throws CoordinateException;
 	
 	/**
 	 * @methodtype 
@@ -321,8 +370,9 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * primitive, hook
 	 * 
 	 * @return
+	 * @throws CoordinateException 
 	 */
-	protected abstract SphericCoordinate doAsSphericCoordinate();
+	protected abstract SphericCoordinate doAsSphericCoordinate() throws CoordinateException;
 	
 	/**
 	 * @methodtype 
@@ -332,8 +382,9 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * primitive, hook
 	 * 
 	 * @return
+	 * @throws CoordinateException 
 	 */
-	protected abstract CartesianCoordinate doAsCartesianCoordinate();
+	protected abstract CartesianCoordinate doAsCartesianCoordinate() throws CoordinateException;
 	
 	/**
 	 * Class invariant will be implemented by specific coordinate classes.
@@ -378,7 +429,9 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	private void assertIsCoordinateResultNull(Coordinate coordinate) {
 		//coordinate shouldn't be null
-		assert (coordinate != null);
+		if (coordinate == null) {
+			throw new IllegalCoordinateResultException("Coordinate result should not be null!");
+		}
 	}
 	
 	/**
@@ -391,7 +444,9 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	private void assertIsDistanceGreaterThanZero(double distance) {
 		//distance hast to be greater than zero
-		assert (distance >= 0);
+		if (distance < 0) {
+			throw new IllegalCoordinateResultException("Coordinate distance should not be less than zero!");
+		}
 	}
 	
 
