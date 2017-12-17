@@ -30,12 +30,14 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  *		{@link StringUtilTest},
  *		{@link VersionTest}
+ *		{@link DoubleUtilTest}
  */
 @RunWith(Suite.class)
 @SuiteClasses({ 
 	//Test classes
 	StringUtilTest.class,
-	VersionTest.class 
+	VersionTest.class, 
+	DoubleUtilTest.class
 })
 
 public class UtilsTestSuite {

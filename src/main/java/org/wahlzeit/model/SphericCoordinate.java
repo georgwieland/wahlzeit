@@ -43,6 +43,7 @@ public final class SphericCoordinate extends AbstractCoordinate {
 	//Precision for double equality comparison
 	private static final double PRECISION = 1E-5;
 	
+	//holds all existing sphericcoordinate value objects
 	private static final HashMap<Integer, SphericCoordinate> sharedSphericCoordinateObjects = new HashMap<>();
 		
 	/**
@@ -88,10 +89,14 @@ public final class SphericCoordinate extends AbstractCoordinate {
 	
 	/**
 	 * 
+	 * @methodtype factory
+	 * 
 	 * @param radius
 	 * @param longitude
 	 * @param latitude
 	 * @return
+	 * new or existing reference to sphericcoordinate object
+	 * 
 	 * @throws CoordinateException
 	 */
 	static public synchronized SphericCoordinate createSphericCoordinate(double radius, double longitude, double latitude) throws CoordinateException {
@@ -115,6 +120,17 @@ public final class SphericCoordinate extends AbstractCoordinate {
 		}
 	}
 	
+
+	/**
+	 * @methodtype factory
+	 * 
+	 * @methodproperties convenience
+	 * 
+	 * @return
+	 * new or existing reference to sphericcoordinate object
+	 * 
+	 * @throws CoordinateException
+	 */
 	static public synchronized SphericCoordinate createSphericCoordinate() throws CoordinateException {
 		return createSphericCoordinate(0.0, 0.0, 0.0);
 	}
@@ -297,6 +313,15 @@ public final class SphericCoordinate extends AbstractCoordinate {
 		return result;
 	}
 	
+	/**
+	 * Calculates hashcode for the specified arguments.
+	 * 
+	 * @param radius
+	 * @param longitude
+	 * @param latitude
+	 * @return
+	 * Hash value.
+	 */
 	private static int calculateHashCode(double radius, double longitude, double latitude) {
 		final int prime = 31;
 		int result = 1;

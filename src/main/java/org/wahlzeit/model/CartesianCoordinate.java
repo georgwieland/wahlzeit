@@ -42,6 +42,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 	//Precision for double equality comparison
 	private static final double PRECISION = 1E-5;
 	
+	//holds all existing cartesiancoordinate value objects
 	private static final HashMap<Integer, CartesianCoordinate> sharedCartesianCoordinate = new HashMap<>();
 	
 	/**
@@ -95,10 +96,14 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 	
 	/**
 	 * 
+	 * @methodtype factory
+	 * 
 	 * @param radius
 	 * @param longitude
 	 * @param latitude
 	 * @return
+	 * new or existing reference to sphericcoordinate object
+	 * 
 	 * @throws CoordinateException
 	 */
 	static public synchronized CartesianCoordinate createCartesianCoordinate(double x, double y, double z) throws CoordinateException {
@@ -122,6 +127,16 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 		}
 	}
 	
+	/**
+	 * @methodtype factory
+	 * 
+	 * @methodproperties convenience
+	 * 
+	 * @return
+	 * new or existing reference to sphericcoordinate object
+	 * 
+	 * @throws CoordinateException
+	 */
 	static public synchronized CartesianCoordinate createCartesianCoordinate() throws CoordinateException {
 		return createCartesianCoordinate(0.0, 0.0, 0.0);
 	}
@@ -330,6 +345,15 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 		return result;
 	}	
 	
+	/**
+	 * Calculates hashcode for the specified arguments.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 * Hash value.
+	 */
 	private static int calculateHashCode(double x, double y, double z) {
 		final int prime = 31;
 		int result = 1;

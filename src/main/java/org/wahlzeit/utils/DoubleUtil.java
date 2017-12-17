@@ -62,7 +62,7 @@ public class DoubleUtil {
 			throw new IllegalArgumentException("Value shouldn't be zero!");
 		}
 		
-		double tempResult = (value*(1/precision));
+		double tempResult = (value*Math.round(1/precision));
 		int resultAsInt = (int)tempResult;
 		
 		return resultAsInt;
