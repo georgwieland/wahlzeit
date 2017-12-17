@@ -122,7 +122,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 			assertIsValidCoordinateValue(longitude);
 			assertIsPositiveRadius(radius);
 		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 	
 		this.radius = radius;
@@ -168,7 +168,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 			assertIsValidCoordinateValue(longitude);
 			assertIsValidLongitude(longitude);
 		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 		
 		this.longitude = longitude;
@@ -214,7 +214,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 			assertIsValidCoordinateValue(latitude);
 			assertIsValidLatitude(latitude);
 		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 		
 		this.latitude = latitude;

@@ -58,7 +58,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		try {
 			assertIsCoordinateArgumentNull(otherCoordinate);
 		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 		
 		double tempDistance = doGetCartesianDistance(otherCoordinate);
@@ -67,7 +67,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		try {
 			assertIsDistanceGreaterThanZero(tempDistance);
 		} catch (IllegalCoordinateResultException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 		
 		//check class invariant again
@@ -102,7 +102,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		try {
 			assertIsCoordinateArgumentNull(otherCoordinate);
 		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 		
 		
@@ -112,7 +112,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		try {
 			assertIsDistanceGreaterThanZero(tempDistance);
 		} catch (IllegalCoordinateResultException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 		
 		
@@ -151,7 +151,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		try {
 			assertIsCoordinateArgumentNull(otherCoordinate);
 		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 		
 		double tempDistance = doGetSphericDistance(otherCoordinate);
@@ -160,7 +160,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		try {
 			assertIsDistanceGreaterThanZero(tempDistance);
 		} catch (IllegalCoordinateResultException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 		
 		//check class invariant again
@@ -194,7 +194,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		try {
 			assertIsCoordinateResultNull(cartesianCoordinate);
 		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 		
 		//check class invariant again
@@ -229,7 +229,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		try {
 			assertIsCoordinateResultNull(sphericCoordinate);
 		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 		
 		//check class invariant again

@@ -131,7 +131,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		try {
 			assertIsValidCoordinateValue(x);
 		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 			
 		this.x = x;
@@ -177,7 +177,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		try {
 			assertIsValidCoordinateValue(y);
 		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 			
 		this.y = y;
@@ -223,7 +223,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		try {
 			assertIsValidCoordinateValue(z);
 		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex.getMessage());
+			throw new CoordinateException(ex);
 		}
 		
 		this.z = z;
