@@ -71,12 +71,9 @@ public class CartesianCoordinateTest {
 	//*************************************************************************
 	@Test
 	public void testSetterAndGetter() throws CoordinateException {
-		defaultCoordinate.setX(3);
-		defaultCoordinate.setY(4);
-		defaultCoordinate.setZ(5);
-		assertEquals(3.0, defaultCoordinate.getX(), 0.0);
-		assertEquals(4.0, defaultCoordinate.getY(), 0.0);
-		assertEquals(5.0, defaultCoordinate.getZ(), 0.0);
+		assertEquals(1.0, parameterizedCoordinate.getX(), 0.0);
+		assertEquals(2.0, parameterizedCoordinate.getY(), 0.0);
+		assertEquals(3.0, parameterizedCoordinate.getZ(), 0.0);
 	}
 	
 	
@@ -157,14 +154,10 @@ public class CartesianCoordinateTest {
 	@Test
 	public void testIsEqualSameDataDifferentObjects() throws CoordinateException {
 		assertTrue(parameterizedCoordinate.isEqual(new CartesianCoordinate(1.0, 2.0, 3.0)));
-		parameterizedCoordinate.setX(1.00025);
-		parameterizedCoordinate.setY(2.00025);
-		parameterizedCoordinate.setZ(3.00025);
-		assertFalse(parameterizedCoordinate.isEqual(new CartesianCoordinate(1.00024, 2.00024, 3.00024)));
-		parameterizedCoordinate.setX(1.000025);
-		parameterizedCoordinate.setY(2.000025);
-		parameterizedCoordinate.setZ(3.000025);
-		assertTrue(parameterizedCoordinate.isEqual(new CartesianCoordinate(1.000024, 2.000024, 3.000024)));
+		CartesianCoordinate cartesianCoordinate1 = new CartesianCoordinate(1.00025, 2.00025, 3.00025);
+		assertFalse(cartesianCoordinate1.isEqual(new CartesianCoordinate(1.00024, 2.00024, 3.00024)));
+		CartesianCoordinate cartesianCoordinate2 = new CartesianCoordinate(1.000025, 2.000025, 3.000025);
+		assertTrue(cartesianCoordinate2.isEqual(new CartesianCoordinate(1.000024, 2.000024, 3.000024)));
 	}
 	
 	//*************************************************************************

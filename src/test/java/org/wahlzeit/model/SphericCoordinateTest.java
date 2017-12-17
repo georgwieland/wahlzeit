@@ -70,12 +70,10 @@ public class SphericCoordinateTest {
 	//*************************************************************************
 	@Test
 	public void testSetterAndGetter() throws CoordinateException {
-		defaultCoordinate.setRadius(3);
-		defaultCoordinate.setLongitude(Math.PI/4);
-		defaultCoordinate.setLatitude(Math.PI/2);
-		assertEquals(3.0, defaultCoordinate.getRadius(), 0.0);
-		assertEquals(Math.PI/4, defaultCoordinate.getLongitude(), 0.0);
-		assertEquals(Math.PI/2, defaultCoordinate.getLatitude(), 0.0);
+		SphericCoordinate sphericCoordinate = new SphericCoordinate(3, Math.PI/4, Math.PI/2);
+		assertEquals(3.0, sphericCoordinate.getRadius(), 0.0);
+		assertEquals(Math.PI/4, sphericCoordinate.getLongitude(), 0.0);
+		assertEquals(Math.PI/2, sphericCoordinate.getLatitude(), 0.0);
 	}
 	
 	//*************************************************************************
@@ -155,14 +153,10 @@ public class SphericCoordinateTest {
 	@Test
 	public void testIsEqualSameDataDifferentObjects() throws CoordinateException {
 		assertTrue(parameterizedCoordinate.isEqual(new SphericCoordinate(1.0, Math.PI/2, Math.PI)));
-		parameterizedCoordinate.setRadius(1.0 + 0.00025);
-		parameterizedCoordinate.setLongitude((Math.PI/2) + 0.00025);
-		parameterizedCoordinate.setLatitude( Math.PI - 0.00025);
-		assertFalse(parameterizedCoordinate.isEqual(new SphericCoordinate(1.0 + 0.00024, (Math.PI/2) + 0.00024, Math.PI - 0.00024)));
-		parameterizedCoordinate.setRadius(1.0 + 0.000025);
-		parameterizedCoordinate.setLongitude((Math.PI/2) + 0.000025);
-		parameterizedCoordinate.setLatitude(Math.PI - 0.000025);
-		assertTrue(parameterizedCoordinate.isEqual(new SphericCoordinate(1.0 + 0.000024, (Math.PI/2) + 0.000024, Math.PI - 0.000024)));
+		SphericCoordinate sphericCoordinate1 = new SphericCoordinate(1.0 + 0.00025, (Math.PI/2) + 0.00025, Math.PI - 0.00025);
+		assertFalse(sphericCoordinate1.isEqual(new SphericCoordinate(1.0 + 0.00024, (Math.PI/2) + 0.00024, Math.PI - 0.00024)));
+		SphericCoordinate sphericCoordinate2 = new SphericCoordinate(1.0 + 0.000025, (Math.PI/2) + 0.000025, Math.PI - 0.000025);
+		assertTrue(sphericCoordinate2.isEqual(new SphericCoordinate(1.0 + 0.000024, (Math.PI/2) + 0.000024, Math.PI - 0.000024)));
 	}
 	
 	//*************************************************************************
@@ -201,19 +195,17 @@ public class SphericCoordinateTest {
 	//*************************************************************************
 	@Test(expected = CoordinateException.class)
 	public void testAssertPositiveRadius() throws CoordinateException {
-		defaultCoordinate.setRadius(-0.01);
+		SphericCoordinate sphericCoordinate = new SphericCoordinate(-1.2, 0, 0);
 	}
 	
 	@Test(expected = CoordinateException.class)
 	public void testAssertIsValidLongitude() throws CoordinateException {
-		defaultCoordinate.setLongitude(-4.0);
-		defaultCoordinate.setLongitude(4.0);
+		SphericCoordinate sphericCoordinate = new SphericCoordinate(2, -4, 0);
 	}
 	
 	@Test(expected = CoordinateException.class)
 	public void testAssertIsValidLatitude() throws CoordinateException {
-		defaultCoordinate.setLatitude(-0.01);
-		defaultCoordinate.setLatitude(4.0);
+		SphericCoordinate sphericCoordinate = new SphericCoordinate(2, 2, 4);
 	}
 		
 	//*************************************************************************
