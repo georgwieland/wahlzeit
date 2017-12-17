@@ -27,16 +27,16 @@ import org.wahlzeit.utils.DoubleUtil;
  * SphericCoordinate is represented by radius, longitude and latitude.
  *
  */
-public class SphericCoordinate extends AbstractCoordinate {
+public final class SphericCoordinate extends AbstractCoordinate {
 
 	//radius which is the radial distance to the origin
-	private double radius;
+	private final double radius;
 		
 	//longitude 
-	private double longitude;
+	private final double longitude;
 		
 	//latitude
-	private double latitude;
+	private final double latitude;
 	
 	//Precision for double equality comparison
 	private static final double PRECISION = 1E-5;
@@ -62,9 +62,20 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * 
 	 */
 	public SphericCoordinate(double radius, double longitude, double latitude) throws CoordinateException {		
-		this.setRadius(radius);
-		this.setLongitude(longitude);
-		this.setLatitude(latitude);
+		try {
+			assertIsValidCoordinateValue(radius);
+			assertIsPositiveRadius(radius);
+			assertIsValidCoordinateValue(longitude);
+			assertIsValidLongitude(longitude);
+			assertIsValidCoordinateValue(latitude);
+			assertIsValidLatitude(latitude);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex);
+		}
+
+		this.radius = radius;
+		this.longitude = longitude;
+		this.latitude = latitude;
 			
 		//Check class invariants after instantiation. 
 		//Not necessary for other constructors because they are just convenience constructors which call this one
@@ -103,35 +114,6 @@ public class SphericCoordinate extends AbstractCoordinate {
 
 
 	/**
-	 * Set method for radius
-	 * 
-	 * @methodtype 
-	 * set method
-	 * 
-	 * @invariant {@link SphericCoordinate#assertImplementationClassInvariant}
-	 * 
-	 * @precondition (value != NaN) || (radius >= zero)
-	 *  
-	 * @param radius
-	 * Radius value which will be set
-	 */
-	public void setRadius(double radius) throws CoordinateException {
-		//check class invariant before changing objects state
-		assertImplementationClassInvariant();
-		try {
-			assertIsValidCoordinateValue(longitude);
-			assertIsPositiveRadius(radius);
-		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex);
-		}
-	
-		this.radius = radius;
-		
-		//check class invariant after changing objects state
-		assertImplementationClassInvariant();
-	}
-
-	/**
 	 * Get method for longitude
 	 * 
 	 * @methodtype 
@@ -147,36 +129,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		return longitude;
 	}
 
-	/**
-	 * Set method for longitude
-	 * 
-	 * @methodtype 
-	 * set method
-	 * 
-	 * @invariant {@link SphericCoordinate#assertClassInvariants}
-	 * 
-	 * @precondition (value != NaN) || (longitude >= -Math.PI) || (longitude <= Math.PI)
-	 *  
-	 * @param longitude
-	 * Longitude value which will be set
-	 */
-	public void setLongitude(double longitude) throws CoordinateException {
-		//check class invariant before changing objects state
-		assertImplementationClassInvariant();
-		
-		try {
-			assertIsValidCoordinateValue(longitude);
-			assertIsValidLongitude(longitude);
-		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex);
-		}
-		
-		this.longitude = longitude;
-		
-		//check class invariant after changing objects state
-		assertImplementationClassInvariant();
-	}
-
+	
 	/**
 	 * Get method for latitude
 	 * 
@@ -191,36 +144,6 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 */
 	public double getLatitude() {
 		return latitude;
-	}
-
-	/**
-	 * Set method for latitude
-	 * 
-	 * @methodtype 
-	 * set method
-	 * 
-	 * @invariant {@link SphericCoordinate#assertClassInvariants}
-	 * 
-	 * @precondition (value != NaN) || (latitude >= 0.0) || (latitude <= Math.PI)
-	 *   
-	 * @param latitude
-	 * Latitude value which will be set
-	 */
-	public void setLatitude(double latitude) throws CoordinateException {
-		//check class invariant before changing objects state
-		assertImplementationClassInvariant();
-		
-		try {
-			assertIsValidCoordinateValue(latitude);
-			assertIsValidLatitude(latitude);
-		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex);
-		}
-		
-		this.latitude = latitude;
-		
-		//check class invariant after changing objects state
-		assertImplementationClassInvariant();
 	}
 
 	/**

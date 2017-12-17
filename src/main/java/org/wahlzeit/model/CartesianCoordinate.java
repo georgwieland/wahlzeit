@@ -26,16 +26,16 @@ import org.wahlzeit.utils.DoubleUtil;
 /**
  * CartesianCoordinate is represented by a x, y and cartesian coordinate.
  */
-public class CartesianCoordinate extends AbstractCoordinate {
+public final class CartesianCoordinate extends AbstractCoordinate {
 	
 	//x coordinate
-	private double x;
+	private final double x;
 	
 	//y coordinate
-	private double y;
+	private final double y;
 	
 	//z coordinate
-	private double z;
+	private final double z;
 	
 	//Precision for double equality comparison
 	private static final double PRECISION = 1E-5;
@@ -72,9 +72,17 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @throws CoordinateException 
 	 */
 	public CartesianCoordinate(double x, double y, double z) throws CoordinateException {
-		this.setX(x);
-		this.setY(y);
-		this.setZ(z);
+		try {
+			assertIsValidCoordinateValue(x);
+			assertIsValidCoordinateValue(y);
+			assertIsValidCoordinateValue(z);
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex);
+		}
+		
+		this.x = x;
+		this.y = y;
+		this.z = z;
 		
 		//Check class invariants after instantiation. 
 		//Not necessary for other constructors because they are just convenience constructors which call this one
@@ -110,36 +118,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return x;
 	}
 
-	/**
-	 * Set method for x coordinate.
-	 * 
-	 * @methodtype 
-	 * set method
-	 * 
-	 * @invariant (members != NaN)
-	 * 
-	 * @precondition (value != NaN)
-	 *  
-	 * @param x
-	 * x coordinate
-	 * @throws CoordinateException 
-	 */
-	public void setX(double x) throws CoordinateException {
-		//check class invariant before changing objects state
-		assertImplementationClassInvariant();
-		
-		try {
-			assertIsValidCoordinateValue(x);
-		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex);
-		}
-			
-		this.x = x;
-		
-		//check class invariant after changing objects state
-		assertImplementationClassInvariant();
-	}
-	
+
 	/**
 	 * Get method for y coordinate.
 	 * 
@@ -156,35 +135,6 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return y;
 	}
 
-	/**
-	 * Set method for y coordinate.
-	 * 
-	 * @methodtype 
-	 * set method
-	 * 
-	 * @invariant (members != NaN)
-	 * 
-	 * @precondition (value != NaN)
-	 * 
-	 * @param y
-	 * y coordinate
-	 * @throws CoordinateException 
-	 */
-	public void setY(double y) throws CoordinateException {
-		//check class invariant before changing objects state
-		assertImplementationClassInvariant();
-		
-		try {
-			assertIsValidCoordinateValue(y);
-		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex);
-		}
-			
-		this.y = y;
-		
-		//check class invariant after changing objects state
-		assertImplementationClassInvariant();
-	}
 
 	/**
 	 * Get method for z coordinate.
@@ -202,37 +152,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return z;
 	}
 
-	/**
-	 * Set method for z coordinate.
-	 * 
-	 * @methodtype 
-	 * set method
-	 * 
-	 * @invariant (members != NaN)
-	 * 
-	 * @precondition (value != NaN)
-	 * 
-	 * @param z
-	 * z coordinate
-	 * @throws CoordinateException 
-	 */
-	public void setZ(double z) throws CoordinateException {
-		//check class invariant before changing objects state
-		assertImplementationClassInvariant();
-		
-		try {
-			assertIsValidCoordinateValue(z);
-		} catch (IllegalArgumentException ex) {
-			throw new CoordinateException(ex);
-		}
-		
-		this.z = z;
-		
-		//check class invariant after changing objects state
-		assertImplementationClassInvariant();
-	}
 	
-
 	/**
 	 * @throws CoordinateException 
 	 * @see org.wahlzeit.model.Coordinate#getCartesianDistance(org.wahlzeit.model.Coordinate)
