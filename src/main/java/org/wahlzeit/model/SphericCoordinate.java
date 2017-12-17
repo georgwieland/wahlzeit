@@ -21,6 +21,8 @@
  */
 package org.wahlzeit.model;
 
+import java.util.HashMap;
+
 import org.wahlzeit.utils.DoubleUtil;
 
 /**
@@ -41,14 +43,15 @@ public final class SphericCoordinate extends AbstractCoordinate {
 	//Precision for double equality comparison
 	private static final double PRECISION = 1E-5;
 	
-	
+	private static final HashMap<Integer, SphericCoordinate> sharedSphericCoordinateObjects = new HashMap<>();
+		
 	/**
 	 * Constructs a SphericCoordinate object.
 	 * 
 	 * @methodtype constructor
 	 * @methodproperties convenience
 	 */
-	public SphericCoordinate() throws CoordinateException{
+	private SphericCoordinate() throws CoordinateException{
 		this(0.0, 0.0, 0.0);
 	}
 
@@ -61,7 +64,7 @@ public final class SphericCoordinate extends AbstractCoordinate {
 	 * @invariant will be checked after instantiation
 	 * 
 	 */
-	public SphericCoordinate(double radius, double longitude, double latitude) throws CoordinateException {		
+	private SphericCoordinate(double radius, double longitude, double latitude) throws CoordinateException {		
 		try {
 			assertIsValidCoordinateValue(radius);
 			assertIsPositiveRadius(radius);
@@ -84,17 +87,37 @@ public final class SphericCoordinate extends AbstractCoordinate {
 	
 	
 	/**
-	 * Copy constructor
 	 * 
-	 * @methodtype constructor
-	 * @methodproperties convenience
-	 * @param otherCoordinate
-	 * SphericCoordinate object to copy.
+	 * @param radius
+	 * @param longitude
+	 * @param latitude
+	 * @return
+	 * @throws CoordinateException
 	 */
-	public SphericCoordinate(SphericCoordinate otherCoordinate) throws CoordinateException{
-		this(otherCoordinate.getRadius(), otherCoordinate.getLongitude(), otherCoordinate.getLatitude());
+	static public synchronized SphericCoordinate createSphericCoordinate(double radius, double longitude, double latitude) throws CoordinateException {
+		double tempRadius = DoubleUtil.trimDoubleValue(radius, PRECISION);
+		double tempLongitude = DoubleUtil.trimDoubleValue(longitude, PRECISION);
+		double tempLatitude = DoubleUtil.trimDoubleValue(latitude, PRECISION);
+		
+		Integer hash = calculateHashCode(tempRadius, tempLongitude, tempLatitude);	
+		SphericCoordinate newSphericCoordinate = sharedSphericCoordinateObjects.get(hash);
+		
+		try {	
+			if (newSphericCoordinate == null) {
+				newSphericCoordinate = new SphericCoordinate(radius, longitude, latitude);
+				sharedSphericCoordinateObjects.put(hash, newSphericCoordinate);
+				return newSphericCoordinate;
+			} else {
+				return sharedSphericCoordinateObjects.get(hash);
+			}
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex);
+		}
 	}
 	
+	static public synchronized SphericCoordinate createSphericCoordinate() throws CoordinateException {
+		return createSphericCoordinate(0.0, 0.0, 0.0);
+	}
 	
 	/**
 	 * Get method for radius
@@ -208,7 +231,7 @@ public final class SphericCoordinate extends AbstractCoordinate {
 		double y = this.radius * Math.sin(this.longitude) * Math.sin(this.latitude);
 		double z = this.radius * Math.cos(this.longitude);
 		
-		return new CartesianCoordinate(x, y, z);
+		return CartesianCoordinate.createCartesianCoordinate(x, y, z);
 	}
 
 	/**
@@ -225,7 +248,7 @@ public final class SphericCoordinate extends AbstractCoordinate {
 	 */
 	@Override
 	protected SphericCoordinate doAsSphericCoordinate() throws CoordinateException {
-		return new SphericCoordinate(this);
+		return SphericCoordinate.createSphericCoordinate(this.radius, this.longitude, this.latitude);
 	}
 	
 	/**
@@ -245,9 +268,7 @@ public final class SphericCoordinate extends AbstractCoordinate {
 		//get cartesian cartseian representation
 		SphericCoordinate sphericCoordinate = otherCoordinate.asSphericCoordinate();
 		
-		return ((DoubleUtil.compareDoubles(this.radius, sphericCoordinate.getRadius(), PRECISION)) && 
-				(DoubleUtil.compareDoubles(this.longitude, sphericCoordinate.getLongitude(), PRECISION)) && 
-				(DoubleUtil.compareDoubles(this.latitude, sphericCoordinate.getLatitude(), PRECISION)));
+		return this == sphericCoordinate;
 	}
 
 	/**
@@ -273,6 +294,20 @@ public final class SphericCoordinate extends AbstractCoordinate {
 		//check class invariant after 
 		assertImplementationClassInvariant();
 		
+		return result;
+	}
+	
+	private static int calculateHashCode(double radius, double longitude, double latitude) {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(latitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(longitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(radius);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+				
 		return result;
 	}
 		

@@ -38,8 +38,8 @@ public class CartesianCoordinateTest {
 	
 	@Before
 	public void setupCoordinates() throws CoordinateException {
-		defaultCoordinate = new CartesianCoordinate();
-		parameterizedCoordinate = new CartesianCoordinate(1.0, 2.0, 3.0);
+		defaultCoordinate = CartesianCoordinate.createCartesianCoordinate();
+		parameterizedCoordinate = CartesianCoordinate.createCartesianCoordinate(1.0, 2.0, 3.0);
 	}
 	
 	//*************************************************************************
@@ -60,12 +60,12 @@ public class CartesianCoordinateTest {
 	}
 	
 	@Test
-	public void testCopyConstructor() throws CoordinateException {
-		CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(parameterizedCoordinate);
-		assertEquals(parameterizedCoordinate, cartesianCoordinate);
+	public void testObjectCreation() throws CoordinateException {
+		CartesianCoordinate cartesianCoordinate1 = CartesianCoordinate.createCartesianCoordinate(1.0, 1.0, 1.0);
+		CartesianCoordinate cartesianCoordinate2 = CartesianCoordinate.createCartesianCoordinate(1.0, 1.0, 1.0);
+		assertEquals(cartesianCoordinate1, cartesianCoordinate2);
 	}
-	
-	
+			
 	//*************************************************************************
 	//							CartesianCoordinate.set-/get-
 	//*************************************************************************
@@ -116,7 +116,7 @@ public class CartesianCoordinateTest {
 	
 	@Test
 	public void testGetSphericDistanceCalculation() throws CoordinateException {	
-		CartesianCoordinate coordinateIncrXYZ = new CartesianCoordinate( 1, 0, 0);
+		CartesianCoordinate coordinateIncrXYZ = CartesianCoordinate.createCartesianCoordinate( 1, 0, 0);
 		assertEquals(1, defaultCoordinate.getSphericDistance(coordinateIncrXYZ), 0.000001);	
 	}
 	
@@ -153,11 +153,11 @@ public class CartesianCoordinateTest {
 	
 	@Test
 	public void testIsEqualSameDataDifferentObjects() throws CoordinateException {
-		assertTrue(parameterizedCoordinate.isEqual(new CartesianCoordinate(1.0, 2.0, 3.0)));
-		CartesianCoordinate cartesianCoordinate1 = new CartesianCoordinate(1.00025, 2.00025, 3.00025);
-		assertFalse(cartesianCoordinate1.isEqual(new CartesianCoordinate(1.00024, 2.00024, 3.00024)));
-		CartesianCoordinate cartesianCoordinate2 = new CartesianCoordinate(1.000025, 2.000025, 3.000025);
-		assertTrue(cartesianCoordinate2.isEqual(new CartesianCoordinate(1.000024, 2.000024, 3.000024)));
+		assertTrue(parameterizedCoordinate.isEqual(CartesianCoordinate.createCartesianCoordinate(1.0, 2.0, 3.0)));
+		CartesianCoordinate cartesianCoordinate1 = CartesianCoordinate.createCartesianCoordinate(1.00025, 2.00025, 3.00025);
+		assertFalse(cartesianCoordinate1.isEqual(CartesianCoordinate.createCartesianCoordinate(1.00024, 2.00024, 3.00024)));
+		CartesianCoordinate cartesianCoordinate2 = CartesianCoordinate.createCartesianCoordinate(1.000025, 2.000025, 3.000025);
+		assertTrue(cartesianCoordinate2.isEqual(CartesianCoordinate.createCartesianCoordinate(1.000024, 2.000024, 3.000024)));
 	}
 	
 	//*************************************************************************
@@ -181,14 +181,14 @@ public class CartesianCoordinateTest {
 	@Test
 	public void testEqualNotEqual() throws CoordinateException {
 		assertFalse(defaultCoordinate.equals(parameterizedCoordinate));
-		assertFalse(parameterizedCoordinate.equals(new CartesianCoordinate(2.0, 2.0, 3.0)));
-		assertFalse(parameterizedCoordinate.equals(new CartesianCoordinate(1.0, 1.0, 3.0)));
-		assertFalse(parameterizedCoordinate.equals(new CartesianCoordinate(1.0, 2.0, 2.0)));
+		assertFalse(parameterizedCoordinate.equals(CartesianCoordinate.createCartesianCoordinate(2.0, 2.0, 3.0)));
+		assertFalse(parameterizedCoordinate.equals(CartesianCoordinate.createCartesianCoordinate(1.0, 1.0, 3.0)));
+		assertFalse(parameterizedCoordinate.equals(CartesianCoordinate.createCartesianCoordinate(1.0, 2.0, 2.0)));
 	}
 	
 	@Test
 	public void testEqualSameDataDifferentObjects() throws CoordinateException {
-		assertTrue(parameterizedCoordinate.equals(new CartesianCoordinate(1.0, 2.0, 3.0)));
+		assertTrue(parameterizedCoordinate.equals(CartesianCoordinate.createCartesianCoordinate(1.0, 2.0, 3.0)));
 	}
 
 	//*************************************************************************

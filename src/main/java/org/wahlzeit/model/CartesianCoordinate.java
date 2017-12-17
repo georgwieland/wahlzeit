@@ -21,6 +21,8 @@
  */
 package org.wahlzeit.model;
 
+import java.util.HashMap;
+
 import org.wahlzeit.utils.DoubleUtil;
 
 /**
@@ -40,6 +42,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 	//Precision for double equality comparison
 	private static final double PRECISION = 1E-5;
 	
+	private static final HashMap<Integer, CartesianCoordinate> sharedCartesianCoordinate = new HashMap<>();
 	
 	/**
 	 * Constructs a CartesianCoordinate.
@@ -48,7 +51,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 	 * @methodtype constructor
 	 * @methodproperties convenience
 	 */
-	public CartesianCoordinate() throws CoordinateException {
+	private CartesianCoordinate() throws CoordinateException {
 		this(0.0, 0.0, 0.0);
 	}
 	
@@ -71,7 +74,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 	 * z coordinate for initialization.
 	 * @throws CoordinateException 
 	 */
-	public CartesianCoordinate(double x, double y, double z) throws CoordinateException {
+	private CartesianCoordinate(double x, double y, double z) throws CoordinateException {
 		try {
 			assertIsValidCoordinateValue(x);
 			assertIsValidCoordinateValue(y);
@@ -89,17 +92,38 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 		assertImplementationClassInvariant();
 	}
 	
+	
 	/**
-	 * Copy constructor
 	 * 
-	 * @methodtype constructor
-	 * @methodproperties convenience
-	 * @param otherCoordinate
-	 * CartesianCoordinate object to copy.
-	 * @throws CoordinateException 
+	 * @param radius
+	 * @param longitude
+	 * @param latitude
+	 * @return
+	 * @throws CoordinateException
 	 */
-	public CartesianCoordinate(CartesianCoordinate otherCoordinate) throws CoordinateException {
-		this(otherCoordinate.getX(), otherCoordinate.getY(), otherCoordinate.getZ());
+	static public synchronized CartesianCoordinate createCartesianCoordinate(double x, double y, double z) throws CoordinateException {
+		double tempX = DoubleUtil.trimDoubleValue(x, PRECISION);
+		double tempY = DoubleUtil.trimDoubleValue(y, PRECISION);;
+		double tempZ = DoubleUtil.trimDoubleValue(z, PRECISION);;
+		
+		Integer hash = calculateHashCode(tempX, tempY, tempZ);
+		CartesianCoordinate newCartesianCoordinate = sharedCartesianCoordinate.get(hash);
+		
+		try {
+			if (newCartesianCoordinate == null) {
+				newCartesianCoordinate =  new CartesianCoordinate(x, y, z);
+				sharedCartesianCoordinate.put(hash, newCartesianCoordinate);
+				return newCartesianCoordinate;
+			} else {
+				return sharedCartesianCoordinate.get(hash);
+			}
+		} catch (IllegalArgumentException ex) {
+			throw new CoordinateException(ex);
+		}
+	}
+	
+	static public synchronized CartesianCoordinate createCartesianCoordinate() throws CoordinateException {
+		return createCartesianCoordinate(0.0, 0.0, 0.0);
 	}
 	
 	/**
@@ -217,7 +241,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	@Override
 	protected CartesianCoordinate doAsCartesianCoordinate() throws CoordinateException {
-		return new CartesianCoordinate(this);
+		return CartesianCoordinate.createCartesianCoordinate(this.x, this.y, this.z);
 	}
 	
 	/**
@@ -240,7 +264,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 		
 		//check for zero and NaN value
 		if (DoubleUtil.compareDoubles(radius, 0.0, PRECISION) || Double.isNaN(radius)) {
-			return new SphericCoordinate();
+			return SphericCoordinate.createSphericCoordinate(0.0, 0.0, 0.0);
 		}
 
 		//longitude ->  horizontal meaning east-west axis
@@ -249,7 +273,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 		//latitude -> vertical meaning north-south axis
 		double latitude = Math.atan2(this.y , this.x); 	//using atan2 because you can pass two arguments and don't have to worry about division by zero
 		
-		return new SphericCoordinate(radius, longitude, latitude);
+		return SphericCoordinate.createSphericCoordinate(radius, longitude, latitude);
 	}
 	
 	/**
@@ -276,9 +300,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 		//get cartesian representation
 		CartesianCoordinate cartesianCoordinate = otherCoordinate.asCartesianCoordinate();
 		
-		return ((DoubleUtil.compareDoubles(this.x, cartesianCoordinate.getX(), PRECISION)) && 
-				(DoubleUtil.compareDoubles(this.y, cartesianCoordinate.getY(), PRECISION)) && 
-				(DoubleUtil.compareDoubles(this.z, cartesianCoordinate.getZ(), PRECISION)));
+		return this == cartesianCoordinate;
 	}
 
 
@@ -307,6 +329,20 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 		
 		return result;
 	}	
+	
+	private static int calculateHashCode(double x, double y, double z) {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(x);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(y);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(z);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+				
+		return result;
+	}
 	
 	/**
 	 * Check if value is not NaN

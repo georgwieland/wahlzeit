@@ -40,7 +40,7 @@ public class LocationTest {
 	@Before
 	public void setupLocation() throws CoordinateException {
 		defaultLocation = new Location();
-		parameterizedLocation = new Location(new CartesianCoordinate(1.0, 2.0, 3.0));
+		parameterizedLocation = new Location(CartesianCoordinate.createCartesianCoordinate(1.0, 2.0, 3.0));
 	}
 	
 	//*************************************************************************
@@ -48,7 +48,7 @@ public class LocationTest {
 	//*************************************************************************
 	@Test
 	public void testParameterizedConstructor() throws CoordinateException {
-		assertEquals(new CartesianCoordinate(1.0, 2.0, 3.0), parameterizedLocation.getCoordinate());
+		assertEquals(CartesianCoordinate.createCartesianCoordinate(1.0, 2.0, 3.0), parameterizedLocation.getCoordinate());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -61,8 +61,8 @@ public class LocationTest {
 	//*************************************************************************
 	@Test
 	public void testSetAndGet() throws CoordinateException {
-		defaultLocation.setCoordinate(new CartesianCoordinate(2.0, 2.0, 2.0));
-		assertEquals(new CartesianCoordinate(2.0, 2.0, 2.0), defaultLocation.getCoordinate());
+		defaultLocation.setCoordinate(CartesianCoordinate.createCartesianCoordinate(2.0, 2.0, 2.0));
+		assertEquals(CartesianCoordinate.createCartesianCoordinate(2.0, 2.0, 2.0), defaultLocation.getCoordinate());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -91,7 +91,7 @@ public class LocationTest {
 	
 	@Test
 	public void testEqualNotEqual() throws CoordinateException {
-		defaultLocation.setCoordinate(new CartesianCoordinate());
+		defaultLocation.setCoordinate(CartesianCoordinate.createCartesianCoordinate());
 		assertFalse(defaultLocation.equals(parameterizedLocation));
 	}
 	

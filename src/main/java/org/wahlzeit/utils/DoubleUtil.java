@@ -27,7 +27,7 @@ package org.wahlzeit.utils;
  *
  */
 public class DoubleUtil {
-
+	
 	/**
 	 * Comparing two doubles taking rounding error into account.
 	 * 
@@ -50,4 +50,22 @@ public class DoubleUtil {
 		//first substract and compare absolute value with PRECISION 
 		return Math.abs(firstDouble - secondDouble) < precision;
 	}
+	
+	/**
+	 * 
+	 * @param value
+	 * @param precision
+	 * @return
+	 */
+	public static int trimDoubleValue(double value, double precision) {
+		if (precision == 0.0) {
+			throw new IllegalArgumentException("Value shouldn't be zero!");
+		}
+		
+		double tempResult = (value*(1/precision));
+		int resultAsInt = (int)tempResult;
+		
+		return resultAsInt;
+	}
+	
 } //end of class DoubleUtil
