@@ -24,12 +24,18 @@ package org.wahlzeit.model;
 import java.util.logging.Logger;
 
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.PatternInstance;
 
 /**
  * 
  * This class extends the {@link PhotoFactory} class. A FishPhotoFactory class creates fish photos and related objects
  *
  */
+@PatternInstance (
+		patternName = "Singleton",
+		participants = {"FishPhotoFactory"},
+		relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
+	)
 public class FishPhotoFactory extends PhotoFactory {
 
 	private static final Logger log = Logger.getLogger(FishPhotoFactory.class.getName());
@@ -93,6 +99,11 @@ public class FishPhotoFactory extends PhotoFactory {
 	 * @return 
 	 * Created FishPhoto object.
 	 */
+	@PatternInstance (
+			patternName = "Factory Method",
+			participants = {"FishPhotoFactory"},
+			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
+		)
 	@Override
 	public FishPhoto createPhoto() {
 		return new FishPhoto();
@@ -104,6 +115,11 @@ public class FishPhotoFactory extends PhotoFactory {
 	 * @return 
 	 * Created FishPhoto object.
 	 */
+	@PatternInstance (
+			patternName = "Factory Method",
+			participants = {"FishPhotoFactory"},
+			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
+		)
 	@Override
 	public FishPhoto createPhoto(PhotoId id) {
 		return new FishPhoto(id);
@@ -118,6 +134,11 @@ public class FishPhotoFactory extends PhotoFactory {
 	 * 
 	 * @precondition (fish != null)
 	 */
+	@PatternInstance (
+			patternName = "Factory Method",
+			participants = {"FishPhotoFactory"},
+			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
+		)
 	public FishPhoto createPhoto(Fish fish) {
 		assertIsFishArgumentNull(fish);
 		return new FishPhoto(fish);
@@ -133,6 +154,11 @@ public class FishPhotoFactory extends PhotoFactory {
 	 * 
 	 * @precondition (fish != null)
 	 */
+	@PatternInstance (
+			patternName = "Factory Method",
+			participants = {"FishPhotoFactory"},
+			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
+		)
 	public FishPhoto createPhoto(PhotoId id, Fish fish) {
 		assertIsFishArgumentNull(fish);
 		return new FishPhoto(id, fish);

@@ -24,11 +24,17 @@ package org.wahlzeit.model;
 import java.util.HashMap;
 
 import org.wahlzeit.utils.DoubleUtil;
+import org.wahlzeit.utils.PatternInstance;
 
 /**
  * SphericCoordinate is represented by radius, longitude and latitude.
  *
  */
+@PatternInstance (
+		patternName = "Value Object",
+		participants = {"SphericCoordinate"},
+		relatedPatterns = {""}
+	)
 public final class SphericCoordinate extends AbstractCoordinate {
 
 	//radius which is the radial distance to the origin

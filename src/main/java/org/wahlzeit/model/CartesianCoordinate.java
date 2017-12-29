@@ -24,10 +24,16 @@ package org.wahlzeit.model;
 import java.util.HashMap;
 
 import org.wahlzeit.utils.DoubleUtil;
+import org.wahlzeit.utils.PatternInstance;
 
 /**
  * CartesianCoordinate is represented by a x, y and cartesian coordinate.
  */
+@PatternInstance (
+		patternName = "Value Object",
+		participants = {"CartesianCoordinate"},
+		relatedPatterns = {""}
+	)
 public final class CartesianCoordinate extends AbstractCoordinate {
 	
 	//x coordinate

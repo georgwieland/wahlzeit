@@ -21,12 +21,18 @@
  */
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.PatternInstance;
 
 /**
  * 
  * This class extends the {@link PhotoManager} class. A FishPhotoManager provides access to and manages fish photos.
  *
  */
+@PatternInstance (
+		patternName = "Singleton",
+		participants = {"FishPhotoManager"},
+		relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
+	)
 public class FishPhotoManager extends PhotoManager {
 
 	/**

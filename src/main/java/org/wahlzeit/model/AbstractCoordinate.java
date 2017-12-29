@@ -21,12 +21,18 @@
  */
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.PatternInstance;
 
 /**
  * 
  *	Abstract class for all Coordinate types.
  *
  */
+@PatternInstance (
+		patternName = "Template Method",
+		participants = {"AbstractCoordinate, CartesianCoordinate, SphericCoordinate"},
+		relatedPatterns = {"Strategy, Factory Method"}  // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
+	)
 public abstract class AbstractCoordinate implements Coordinate {
 
 	/**

@@ -21,12 +21,18 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.PatternInstance;
 
 import java.util.logging.Logger;
 
 /**
  * An Abstract Factory for creating photos and related objects.
  */
+@PatternInstance (
+	patternName = "Singleton",
+	participants = {"PhotoFactory"},
+	relatedPatterns = {"Abstract factory, TemplateMethod"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
+)
 public class PhotoFactory {
 
 	private static final Logger log = Logger.getLogger(PhotoFactory.class.getName());
@@ -75,6 +81,11 @@ public class PhotoFactory {
 	/**
 	 * @methodtype factory
 	 */
+	@PatternInstance (
+			patternName = "Factory Method",
+			participants = {"PhotoFactory"},
+			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
+		)
 	public Photo createPhoto() {
 		return new Photo();
 	}
@@ -82,6 +93,11 @@ public class PhotoFactory {
 	/**
 	 * Creates a new photo with the specified id
 	 */
+	@PatternInstance (
+			patternName = "Factory Method",
+			participants = {"PhotoFactory"},
+			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
+		)
 	public Photo createPhoto(PhotoId id) {
 		return new Photo(id);
 	}
@@ -106,6 +122,11 @@ public class PhotoFactory {
 	/**
 	 *
 	 */
+	@PatternInstance (
+			patternName = "Factory Method",
+			participants = {"PhotoFactory"},
+			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
+		)
 	public PhotoFilter createPhotoFilter() {
 		return new PhotoFilter();
 	}
@@ -113,6 +134,11 @@ public class PhotoFactory {
 	/**
 	 *
 	 */
+	@PatternInstance (
+			patternName = "Factory Method",
+			participants = {"PhotoFactory"},
+			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
+		)
 	public PhotoTagCollector createPhotoTagCollector() {
 		return new PhotoTagCollector();
 	}
