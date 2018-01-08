@@ -30,7 +30,7 @@ import org.wahlzeit.utils.PatternInstance;
  */
 @PatternInstance (
 		patternName = "Singleton",
-		participants = {"FishPhotoManager"},
+		participants = {"Singleton"},
 		relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
 	)
 public class FishPhotoManager extends PhotoManager {

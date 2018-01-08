@@ -33,7 +33,7 @@ import org.wahlzeit.utils.PatternInstance;
  */
 @PatternInstance (
 		patternName = "Singleton",
-		participants = {"FishPhotoFactory"},
+		participants = {"Singleton"},
 		relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
 	)
 public class FishPhotoFactory extends PhotoFactory {
@@ -101,7 +101,7 @@ public class FishPhotoFactory extends PhotoFactory {
 	 */
 	@PatternInstance (
 			patternName = "Factory Method",
-			participants = {"FishPhotoFactory"},
+			participants = {"Factory, Concrete Factory, ProductBase, ConcreteProduct"},
 			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
 		)
 	@Override
@@ -117,7 +117,7 @@ public class FishPhotoFactory extends PhotoFactory {
 	 */
 	@PatternInstance (
 			patternName = "Factory Method",
-			participants = {"FishPhotoFactory"},
+			participants = {"Factory, Concrete Factory, ProductBase, ConcreteProduct"},
 			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
 		)
 	@Override
@@ -136,7 +136,7 @@ public class FishPhotoFactory extends PhotoFactory {
 	 */
 	@PatternInstance (
 			patternName = "Factory Method",
-			participants = {"FishPhotoFactory"},
+			participants = {"Factory, Concrete Factory, ProductBase, ConcreteProduct"},
 			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
 		)
 	public FishPhoto createPhoto(Fish fish) {
@@ -156,7 +156,7 @@ public class FishPhotoFactory extends PhotoFactory {
 	 */
 	@PatternInstance (
 			patternName = "Factory Method",
-			participants = {"FishPhotoFactory"},
+			participants = {"Factory, Concrete Factory, ProductBase, ConcreteProduct"},
 			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
 		)
 	public FishPhoto createPhoto(PhotoId id, Fish fish) {

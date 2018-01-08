@@ -31,7 +31,7 @@ import org.wahlzeit.utils.PatternInstance;
  */
 @PatternInstance (
 		patternName = "Value Object",
-		participants = {"CartesianCoordinate"},
+		participants = {"Value Object"},
 		relatedPatterns = {""}
 	)
 public final class CartesianCoordinate extends AbstractCoordinate {

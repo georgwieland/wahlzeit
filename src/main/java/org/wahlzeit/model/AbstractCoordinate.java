@@ -30,7 +30,7 @@ import org.wahlzeit.utils.PatternInstance;
  */
 @PatternInstance (
 		patternName = "Template Method",
-		participants = {"AbstractCoordinate, CartesianCoordinate, SphericCoordinate"},
+		participants = {"AbstractClass, SubClass"},
 		relatedPatterns = {"Strategy, Factory Method"}  // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
 	)
 public abstract class AbstractCoordinate implements Coordinate {

@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  */
 @PatternInstance (
 	patternName = "Singleton",
-	participants = {"PhotoFactory"},
+	participants = {"Singleton"},
 	relatedPatterns = {"Abstract factory, TemplateMethod"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
 )
 public class PhotoFactory {
@@ -83,7 +83,7 @@ public class PhotoFactory {
 	 */
 	@PatternInstance (
 			patternName = "Factory Method",
-			participants = {"PhotoFactory"},
+			participants = {"Factory, Concrete Factory, Product, ConcreteProduct"},
 			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
 		)
 	public Photo createPhoto() {
@@ -95,7 +95,7 @@ public class PhotoFactory {
 	 */
 	@PatternInstance (
 			patternName = "Factory Method",
-			participants = {"PhotoFactory"},
+			participants = {"Factory, Concrete Factory, Product, ConcreteProduct"},
 			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
 		)
 	public Photo createPhoto(PhotoId id) {
@@ -124,7 +124,7 @@ public class PhotoFactory {
 	 */
 	@PatternInstance (
 			patternName = "Factory Method",
-			participants = {"PhotoFactory"},
+			participants = {"Factory, Concrete Factory, Product, ConcreteProduct"},
 			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
 		)
 	public PhotoFilter createPhotoFilter() {
@@ -136,7 +136,7 @@ public class PhotoFactory {
 	 */
 	@PatternInstance (
 			patternName = "Factory Method",
-			participants = {"PhotoFactory"},
+			participants = {"Factory, Concrete Factory, Product, ConcreteProduct"},
 			relatedPatterns = {"Abstract factory, Facade"} // see "Gamma, E.; Helm, R.; Johnson, R.; Vlissides, J. (1995): Design Patterns" Chapter 1
 		)
 	public PhotoTagCollector createPhotoTagCollector() {

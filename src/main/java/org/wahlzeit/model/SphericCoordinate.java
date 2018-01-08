@@ -32,7 +32,7 @@ import org.wahlzeit.utils.PatternInstance;
  */
 @PatternInstance (
 		patternName = "Value Object",
-		participants = {"SphericCoordinate"},
+		participants = {"Value Object"},
 		relatedPatterns = {""}
 	)
 public final class SphericCoordinate extends AbstractCoordinate {
