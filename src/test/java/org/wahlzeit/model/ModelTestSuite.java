@@ -39,8 +39,14 @@ import org.wahlzeit.model.persistence.PersistenceModelTestSuite;
  *		{@link PhotoFilterTest},
  *		{@link TagsTest},
  *		{@link UserStatusTest},
- *		{@link ValueTest},
+ *		{@link ValueTest}, 
+ *		{@link FishTest},
+ *		{@link FishPhotoTest}
+ *		{@link FishPhtotoManagerTest},
+ *		{@link FishPhotoFactoryTest},
+ *		{@link FishTypeTest},
  *		{@link PersistenceModelTestSuite}
+
  */
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -60,6 +66,7 @@ import org.wahlzeit.model.persistence.PersistenceModelTestSuite;
 	FishPhotoTest.class,
 	FishPhotoManagerTest.class,
 	FishPhotoFactoryTest.class,
+	FishTypeTest.class,
 	
 	//Test suites
 	PersistenceModelTestSuite.class

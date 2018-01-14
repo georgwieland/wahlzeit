@@ -33,15 +33,18 @@ import org.junit.Test;
  */
 public class FishTest {
 
+	FishType fishtype1;
+	FishType fishtype2;
 	private Fish fish1;
 	private Fish fish2;
-	private Fish fish3;
+	
 	
 	@Before
 	public void setupFish() {
-		fish1 = new Fish();
-		fish2 = new Fish("Dorade");
-		fish3 = new Fish("Zander", 80.5, true);
+		fishtype1 = new FishType("Rotlachs");
+		fishtype2 = new FishType("Zander", true);
+		fish1 = new Fish(1, fishtype1, 90.0);
+		fish2 = new Fish(2, fishtype2, 80.5);
 	}
 	
 	//*************************************************************************
@@ -51,7 +54,6 @@ public class FishTest {
 	public void testConstructors() {
 		assertNotNull(fish1);
 		assertNotNull(fish2);
-		assertNotNull(fish3);
 	}
 	
 	//*************************************************************************
@@ -59,32 +61,46 @@ public class FishTest {
 	//*************************************************************************
 	@Test
 	public void testGetter() {
-		assertEquals("", fish1.getName());
-		assertEquals(0.0, fish1.getSize(), 1E-5);
-		assertEquals(false, fish1.isPredator());
+		assertEquals(90.0, fish1.getSize(), 1E-5);
+		assertEquals(fishtype1, fish1.getFishType());
+		assertEquals(1, fish1.getId());
 		
-		assertEquals("Dorade", fish2.getName());
-		assertEquals(0.0, fish2.getSize(), 1E-5);
-		assertEquals(false, fish2.isPredator());
-		
-		assertEquals("Zander", fish3.getName());
-		assertEquals(80.5, fish3.getSize(), 1E-5);
-		assertEquals(true, fish3.isPredator());
+		assertEquals(80.5, fish2.getSize(), 1E-5);
+		assertEquals(fishtype2, fish2.getFishType());
+		assertEquals(2, fish2.getId());
 	}
 	
 	@Test
 	public void testSetter() {
-		fish3.setName("Hummer");;
-		fish3.setAverageSize(50.33);
-		fish3.setPredator(false);
+		fish2.setFishType(fishtype1);
+		fish2.setSize(50.33);
+		fish2.setId(1234);
 		
-		assertEquals("Hummer", fish3.getName());
-		assertEquals(50.33, fish3.getSize(), 1E-5);
-		assertEquals(false, fish3.isPredator());
+		assertEquals(50.33, fish2.getSize(), 1E-5);
+		assertEquals(fishtype1, fish2.getFishType());
+		assertEquals(1234, fish2.getId());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void testSetNameNull() {
-		fish3.setName(null);
+	public void testSetSizeNaN() {
+		fish2.setSize(Double.NaN);
 	}
+	
+	
+	//*************************************************************************
+	//		Fish.equals
+	//*************************************************************************
+	@Test
+	public void testEquals() {		
+		assertNotEquals(fish1, fish2);
+		assertEquals(fish1, fish1);
+	}
+	
+	@Test
+	public void testHashCode() {		
+		assertNotEquals(fish1.hashCode(), fish2.hashCode());
+		assertEquals(fish1.hashCode(), fish1.hashCode());
+	}
+	
+	
 }

@@ -28,32 +28,21 @@ package org.wahlzeit.model;
  */
 public class Fish {
 
-	//name of the fish
-	private String name;
-		
-	//average size in 
+	/**
+	 * Size of fish
+	 */
 	private double size;
 	
-	//flag if predator or not
-	private boolean predator;
-	
+	/**
+	 * Type of fish
+	 */
+	private FishType fishType = null;
 	
 	/**
-	 * @methodtype constructor
-	 * @methodproperties convenience
+	 * 
 	 */
-	public Fish() {
-		this("", 0.0, false);
-	}
-	
-	/**
-	 * @methodtype constructor
-	 * @methodproperties convenience
-	 * @param name
-	 */
-	public Fish(String name) {
-		this(name, 0.0, false);
-	}
+	private long id;
+
 	
 	/**
 	 * @methodtype constructor
@@ -61,10 +50,14 @@ public class Fish {
 	 * @param averageSize
 	 * @param predator
 	 */
-	public Fish(String name, double averageSize, boolean predator) {
-		this.name = name;
-		this.size = averageSize;
-		this.predator = predator;
+	public Fish(long id, FishType fishType, double size) {
+		if (fishType == null) {
+			throw new IllegalArgumentException("fishType shouldn't be null!");
+		}
+		
+		this.id = id;
+		this.fishType = fishType;
+		this.size = size;
 	}
 	
 	/**
@@ -82,56 +75,94 @@ public class Fish {
 	 * @methodtype 
 	 * set method
 	 * 
-	 * @param averageSize
+	 * @param size
 	 * Size of the fish.
 	 */
-	public void setAverageSize(double averageSize) {
-		this.size = averageSize;
+	public void setSize(double size) {
+		if (Double.isNaN(size)) {
+			throw new IllegalArgumentException("size shouldn't be NaN");
+		}
+		
+		this.size = size;
 	}
 	
 	/**
-	 * @methodtype 
-	 * bolean query method
-	 * 
-	 * @return
-	 * True if predator otherwise false.
-	 */
-	public boolean isPredator() {
-		return predator;
-	}
-
-	/**
-	 * @methodtype 
-	 * set method
-	 * 
-	 * @param predator
-	 */
-	public void setPredator(boolean predator) {
-		this.predator = predator;
-	}
-
-	/**
-	 * @methodtype 
+	 * @methodtype
 	 * get method
 	 * 
 	 * @return
-	 * Name of the fish.
+	 * Type of fish
 	 */
-	public String getName() {
-		return name;
+	public FishType getFishType() {
+		return fishType;
 	}
 
 	/**
-	 * @methodtype 
+	 * @methodtype
 	 * set method
 	 * 
-	 * @param name
-	 * Name of the fish.
+	 * @param fishType
+	 * Type of fish 
 	 */
-	public void setName(String name) {
-		if (name == null) {
-			throw new IllegalArgumentException("Argument for name shouldn't be null.");
-		}
-		this.name = name;
+	public void setFishType(FishType fishType) {
+		this.fishType = fishType;
 	}
+	
+	/**
+	 * @Methodtype
+	 * get method
+	 * 
+	 * @return
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @methodtype
+	 * set method
+	 * 
+	 * @param id
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fishType == null) ? 0 : fishType.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(size);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fish other = (Fish) obj;
+		if (fishType == null) {
+			if (other.fishType != null)
+				return false;
+		} else if (!fishType.equals(other.fishType))
+			return false;
+		if (Double.doubleToLongBits(size) != Double.doubleToLongBits(other.size))
+			return false;
+		return true;
+	}
+	
+	
 }// end of Fish

@@ -76,24 +76,17 @@ public class FishPhotoFactoryTest {
 	
 	@Test
 	public void testCreateWithFishObject() {
-		Fish fish = new Fish();
+		Fish fish = new Fish(1, new FishType("Rotlachs"), 90.0);
 		FishPhoto photo = factory.createPhoto(fish);
 		assertNotNull(photo);
-		assertEquals("", fish.getName());
-		assertEquals(0.0, fish.getSize(), 1E-5);
-		assertEquals(false, fish.isPredator());
 	}
 	
 	@Test
 	public void testCreateWithIdAndFishObject() {
-		Fish fish = new Fish();
+		Fish fish = new Fish(1, new FishType("Rotlachs"), 90.0);
 		PhotoId id2 = new PhotoId(999);
 		FishPhoto photo = factory.createPhoto(id2, fish);
 		assertNotNull(photo);
-		assertEquals(999, photo.getId().asInt());
-		assertEquals("", fish.getName());
-		assertEquals(0.0, fish.getSize(), 1E-5);
-		assertEquals(false, fish.isPredator());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

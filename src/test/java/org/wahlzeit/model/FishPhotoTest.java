@@ -41,16 +41,14 @@ public class FishPhotoTest {
 	private FishPhoto photo4;
 	
 	private Fish fish;
-	
-	@ClassRule
-	public static RuleChain ruleChain = RuleChain.outerRule(new LocalDatastoreServiceTestConfigProvider());
+
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setupFishPhoto() {
-		fish = new Fish();
+		fish = new Fish(1, new FishType("Rotlachs"), 90.0);
 		
 		photo1 = new FishPhoto();
 		
