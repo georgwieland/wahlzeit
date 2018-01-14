@@ -32,7 +32,6 @@ import com.googlecode.objectify.annotation.Subclass;
 @Subclass
 public class FishPhoto extends Photo {
 
-	@Ignore
 	private Fish fish;
 	
 	/**

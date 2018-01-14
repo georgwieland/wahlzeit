@@ -35,8 +35,8 @@ public class FishTest {
 
 	FishType fishtype1;
 	FishType fishtype2;
-	private Fish fish1;
-	private Fish fish2;
+	Fish fish1;
+	Fish fish2;
 	
 	
 	@Before

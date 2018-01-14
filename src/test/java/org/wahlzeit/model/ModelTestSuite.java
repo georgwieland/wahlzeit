@@ -45,6 +45,7 @@ import org.wahlzeit.model.persistence.PersistenceModelTestSuite;
  *		{@link FishPhtotoManagerTest},
  *		{@link FishPhotoFactoryTest},
  *		{@link FishTypeTest},
+ *		{@link FishManagerTest},
  *		{@link PersistenceModelTestSuite}
 
  */
@@ -67,6 +68,7 @@ import org.wahlzeit.model.persistence.PersistenceModelTestSuite;
 	FishPhotoManagerTest.class,
 	FishPhotoFactoryTest.class,
 	FishTypeTest.class,
+	FishManagerTest.class,
 	
 	//Test suites
 	PersistenceModelTestSuite.class

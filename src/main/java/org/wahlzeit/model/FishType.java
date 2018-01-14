@@ -24,6 +24,8 @@ package org.wahlzeit.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.googlecode.objectify.annotation.Serialize;
+
 /**
  * 
  * ObjectType: FishType represents the object type class for fish instances
@@ -34,11 +36,13 @@ public class FishType {
 	/**
 	 * Supertype of fish type
 	 */
+	@Serialize
 	protected FishType superType = null;
 	
 	/**
 	 * Subtype of fish type
 	 */
+	@Serialize
 	protected Set<FishType> subTypes = new HashSet<FishType>();
 	
 	

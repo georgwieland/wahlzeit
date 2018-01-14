@@ -26,11 +26,15 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * Test class for {@link FishType}. Contains all test cases.
+ *
+ */
 public class FishTypeTest {
 
 	FishType fishtype1;
 	FishType fishtype2;
-	
 	
 	@Before
 	public void setupFish() {
