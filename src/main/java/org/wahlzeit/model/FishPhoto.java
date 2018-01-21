@@ -21,13 +21,46 @@
  */
 package org.wahlzeit.model;
 
+import org.wahlzeit.handlers.UploadPhotoFormHandler;
+import org.wahlzeit.main.ModelMain;
+import org.wahlzeit.services.OfyService;
+
 import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Subclass;
 
 /**
  * 
  * FishPhoto extends the class {@link Photo} an represents an uploaded photo of a fish.
- *
+ * 
+ * ######################################################################################
+ * Documentation of object creation of a fish photo object:
+ * 
+ * 		Sequence of calls to create a fish photo object:
+ * 		''''''''''''''''''''''''''''''''''''''''''
+ * 			During startup:
+ * 			1.	{@link FishPhotoManager} class is instantiated and initialized in 
+ * 				{@link ModelMain} startUp
+ * 			2. During initialization the {@link PhotoManager#loadPhotos()} method is called
+ * 			3. Photos will be loaded and instantiated by {@link OfyService}}
+ * 			
+ * 			Via user interaction:
+ * 			1. {@link UploadPhotoFormHandler} doHandlePost will be called
+ * 			2. Inside the method {@link FishPhotoManager#createPhoto(String, com.google.appengine.api.images.Image)}
+ * 			   is called which is inherited from {@link PhotoManager} class
+ * 			3. Afterwards the {@link PhotoUtil#createPhoto(String, PhotoId, com.google.appengine.api.images.Image)}
+ * 			   will be called 
+ * 			4. {@link FishPhotoFactory#createPhoto(PhotoId)} will be called to create a FishPhoto object
+ * 			5. Constructor of {@link FishPhoto} instantiates the FishPhoto
+ * 
+ * 		Documentation of object creation solution as a point in the solution space:
+ * 		'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+ * 			Delegation:	seperate object -> {@link FishPhotoFactory#createPhoto(PhotoId)} creates a FishPhoto
+ * 			Selection:	subclassing -> {@link FishPhotoFactory} subclass of {@link PhotoFactory}
+ * 			Configuration:	none
+ * 			Instantiation:	in code -> via constructor call
+ * 			Initialization: default -> via constructor arguments
+ * 			Building:	default
+ * ######################################################################################
  */
 @Subclass
 public class FishPhoto extends Photo {
