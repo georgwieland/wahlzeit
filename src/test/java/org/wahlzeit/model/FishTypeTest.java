@@ -126,6 +126,16 @@ public class FishTypeTest {
 		assertFalse(fishtype1.isSubtype());
 	}
 	
+	@Test
+	public void testSubtypeWithArgument() {		
+		fishtype1.addSubType(fishtype2);
+		
+		assertTrue(fishtype2.isSubtype(fishtype2));
+		assertTrue(fishtype1.isSubtype(fishtype2));
+		assertFalse(fishtype2.isSubtype(null));
+		assertFalse(fishtype2.isSubtype(new FishType("Barbe")));
+	}
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void testSubtypeNull() {		
 		fishtype1.addSubType(null);		

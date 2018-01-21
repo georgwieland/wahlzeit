@@ -22,6 +22,7 @@
 package org.wahlzeit.model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import com.googlecode.objectify.annotation.Serialize;
@@ -107,6 +108,29 @@ public class FishType {
 		return false;
 	}
 	
+	/**
+	 * @methodtype boolean query method^
+	 * 
+	 * @return
+	 * True if subtype otherwise false
+	 */
+	public boolean isSubtype(FishType fishType) {
+		if (fishType == null) {
+			return false;
+		}
+		
+		if (fishType == this) {
+			return true;
+		}
+		
+		for(FishType type: this.subTypes) {
+			if(type.isSubtype(fishType)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}	
 	
 	/**
 	 * @methodtype
