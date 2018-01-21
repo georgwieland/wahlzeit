@@ -24,7 +24,27 @@ package org.wahlzeit.model;
 /**
  * 
  * Representation of a fish.
- *
+ * 
+ * ######################################################################################
+ * Documentation of object creation of a fish object:
+ * 
+ * 		Sequence of calls to create a fish object:
+ * 		''''''''''''''''''''''''''''''''''''''''''
+ * 			1.	FishManager is called to create object through the following method 
+ * 				{@link FishManager#createFish(long, String, double)}
+ * 
+ * 			2.	{@link FishManager#createFish(long, String, double)} creates a new Fish
+ * 				 object via constructor and returns it to the caller
+ * 
+ * 		Documentation of object creation solution as a point in the solution space:
+ * 		'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+ * 			Delegation:	separate object
+ * 			Selection:	on the spot
+ * 			Configuration:	none
+ * 			Instantiation:	in code
+ * 			Initialization: default
+ * 			Building:	default
+ * ######################################################################################
  */
 public class Fish {
 
