@@ -1,0 +1,144 @@
+/*
+*	File to describe the collaborations of
+*		1.	FishPhoto with Fish
+*		2.	Fish with FishType
+*		3.	FishManager with Fish
+*/
+
+
+//##############################################################################################
+//
+//								1. Collaboration: FishPhoto with Fish
+//
+//##############################################################################################
+/*
+*	Represents the collaboration of FishPhoto (FishRepresentation) with Fish (Description)
+*/
+public collaboration FishRepresentationDescription {
+	
+	public role FishRepresentation {
+	
+		/**
+		*	Return a Fish object
+		*
+		*	@methodtype get method
+		*/
+		public void setDescription(FishRepresentationDescription.Description description);	
+	
+		/**
+		*	Sets a Fish object
+		*
+		*	@methodtype set method
+		*/
+		public FishRepresentationDescription.Description getDescription(); 
+			
+	}
+
+	public role Description {
+		...
+	}
+}
+//##############################################################################################
+//
+//								1. Bindings: FishPhoto with Fish
+//
+//##############################################################################################
+public class FishPhoto extends Photo binds FishRepresentationDescription.FishRepresentation {
+	public void setFish(Fish fish) : binds FishRepresentationDescription.FishRepresentation.setDescription()
+}
+
+public class Fish binds FishRepresentationDescription.Description {
+	public Fish getFish() : binds FishRepresentationDescription.FishRepresentation.getDescription()
+}
+
+
+
+
+//##############################################################################################
+//
+//								2. Collaboration: Fish with FishType
+//
+//##############################################################################################
+/*
+*	Represents the collaboration of Fish (FishObject) with FishType (Classification)
+*/
+public collaboration FishObjectClassification {
+	
+	public role FishObject {
+		/**
+		*	Get Classification
+		*
+		*	@methodtype get method
+		*/
+		public FishObjectClassification.Classification getClassification();
+		
+		/**
+		*	Sets a Classification
+		*
+		*	@methodtype set method
+		*/
+		public void setClassification(FishObjectClassification.Classification classification);
+	}
+
+	public role Classification {
+	
+		/**
+		*	Creates a FishObject
+		*
+		*	@methodtype factory method
+		*/
+		public FishObjectClassification.FishObject createFishObject();
+	}
+}
+//##############################################################################################
+//
+//								2. Bindings: Fish with FishType
+//
+//##############################################################################################
+public class Fish binds FishObjectClassification.FishObject {
+	public FishType getFishType() : binds FishObjectClassification.FishObject.getClassification()
+	
+	public void setFishType (FishType fishType) : binds FishObjectClassification.FishObject.setClassification()
+}
+
+public class FishType binds FishObjectClassification.Classification {
+	public Fish createInstance(...) : binds FishObjectClassification.Classification.createFishObject()
+}
+
+
+
+//##############################################################################################
+//
+//								3. Collaboration: FishManager with Fish
+//
+//##############################################################################################
+/*
+*	Represents the collaboration of FishManager (Manager) with Fish (FishObject)
+*/
+public collaboration ManagerFishObject {
+	
+	public role Manager {
+		/**
+		*	Creates a FishObject
+		*
+		*	@methodtype factory method
+		*/
+		public ManagerFishObject.FishObject createFishObject();
+	}
+
+	public role FishObject {
+		...
+	}
+}
+//##############################################################################################
+//
+//								3. Bindings: FishManager with Fish
+//
+//##############################################################################################
+public class FishManager extends ObjectManager binds ManagerFishObject.Manager {
+	public Fish createFish(...) : binds ManagerFishObject.Manager.createFishObject()
+}
+
+public class FishType binds ManagerFishObject.FishObject {
+	...
+}
