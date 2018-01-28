@@ -33,14 +33,17 @@ package org.wahlzeit.model;
  * 			1.	FishManager is called to create object through the following method 
  * 				{@link FishManager#createFish(long, String, double)}
  * 
- * 			2.	{@link FishManager#createFish(long, String, double)} creates a new Fish
+ * 			2.	{@link FishManager#createFish(long, String, double)} calls 
+ * 				{@link FishType#createInstance(long, double)} to create a new Fish object
+ * 
+ * 			3. 	{@link FishType#createInstance(long, double)} creates a new Fish
  * 				 object via constructor and returns it to the caller
  * 
  * 		Documentation of object creation solution as a point in the solution space:
  * 		'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
  * 			Delegation:	separate object
  * 			Selection:	on the spot
- * 			Configuration:	none
+ * 			Configuration:	in code
  * 			Instantiation:	in code
  * 			Initialization: default
  * 			Building:	default

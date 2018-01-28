@@ -56,7 +56,7 @@ import com.googlecode.objectify.annotation.Subclass;
  * 		'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
  * 			Delegation:	seperate object -> {@link FishPhotoFactory#createPhoto(PhotoId)} creates a FishPhoto
  * 			Selection:	subclassing -> {@link FishPhotoFactory} subclass of {@link PhotoFactory}
- * 			Configuration:	none
+ * 			Configuration:	in code
  * 			Instantiation:	in code -> via constructor call
  * 			Initialization: default -> via constructor arguments
  * 			Building:	default
